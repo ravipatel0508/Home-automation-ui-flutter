@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,57 +31,51 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   primary: true,
-      //   title: const Text(
-      //         "tempest",
-      //         style: TextStyle(
-      //           color: Colors.white,
-      //           fontSize: 30,
-      //           fontWeight: FontWeight.w500,
-      //           fontStyle: FontStyle.italic,
-      //         ),
-      //       ),
-      //   actions: [
-      //     IconButton(
-      //       icon: const Icon(Icons.add),
-      //       onPressed: () {},
-      //     ),
-      //   ],
-      //   centerTitle: true,
-      //   backgroundColor: Colors.transparent,
-      //   // elevation: 0.0,
-      //   foregroundColor: Colors.transparent,
-      //   shadowColor: Colors.transparent,
-      // ),
-      body: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.center,
-                colors: [
-                  Color(0xFF252525),
-                  Colors.black,
-                ],
-              ),
+    return SafeArea(
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          primary: true,
+          title: const Text(
+            "tempest",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 30,
+              fontWeight: FontWeight.w500,
+              fontStyle: FontStyle.italic,
             ),
           ),
-          Container(
-            alignment: Alignment.topCenter,
-            child: Text(
-              "tempest",
-              style: TextStyle(
+          actions: [
+            IconButton(
+              icon: const Icon(
+                Icons.home,
                 color: Colors.white,
-                fontSize: 30,
-                fontWeight: FontWeight.w500,
-                fontStyle: FontStyle.italic,
+              ),
+              onPressed: () {},
+            ),
+          ],
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          // foregroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+        ),
+        body: Stack(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.center,
+                  colors: [
+                    Color(0xFF252525),
+                    Colors.black,
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
