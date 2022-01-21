@@ -198,25 +198,15 @@ class _MyHomePageState extends State<MyHomePage> {
                             colors: [
                               _color,
                               const Color(0xFF141110),
-                            ]
-                          )
-                          // gradient: LinearGradient(
-                          //   begin: Alignment.topLeft,
-                          //   colors: [
-                          //     _color,
-                          //     Colors.grey,
-                          //   ],
-                          // ),
+                            ],
+                          ),
                         ),
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            gradient: LinearGradient(
+                            gradient: const LinearGradient(
                               begin: Alignment.topLeft,
-                              colors: [
-                                Color(0xFF121212),
-                                Colors.black
-                              ],
+                              colors: [Color(0xFF121212), Colors.black],
                             ),
                             // color: Colors.black,
                           ),
@@ -229,10 +219,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                     ),
-                    CustomPaint(
-                      size: Size(MediaQuery.of(context).size.width, 100),
-                      painter: RPSCustomPainter(),
-                    )
                     // Container(
                     //   child: SingleChildScrollView(
                     //     child: GridView(
@@ -265,6 +251,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
+            Positioned(
+              bottom: 10,
+              child: Container(
+                child: Stack(
+                  children: [
+                    CustomPaint(
+                      size: Size(MediaQuery.of(context).size.width, 100),
+                      painter: RPSCustomPainter(),
+                    ),
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),
@@ -276,10 +275,6 @@ class _MyHomePageState extends State<MyHomePage> {
       width: 105,
       height: 33,
       alignment: Alignment.center,
-      // padding: const EdgeInsets.symmetric(
-      //   horizontal: 25,
-      //   vertical: 8,
-      // ),
       decoration: BoxDecoration(
         border: Border.all(
           color: _color,
@@ -302,40 +297,41 @@ class RPSCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint0 = Paint()
-      ..color = const Color.fromARGB(255, 33, 150, 243)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.0;
+      ..color = const Color.fromARGB(128, 255, 255, 255)
+      ..style = PaintingStyle.fill
+      ..maskFilter = const MaskFilter.blur(BlurStyle.inner, 5)
+      ..strokeWidth = 1.5;
 
     Path path0 = Path();
-    path0.moveTo(size.width * 0.1875000, size.height * 0.2500000);
+    path0.moveTo(size.width * 0.1948100, size.height * 0.1623333);
     path0.cubicTo(
-        size.width * 0.1021875,
-        size.height * 0.2175000,
-        size.width * 0.1413000,
-        size.height * 0.7137500,
-        size.width * 0.1875000,
-        size.height * 0.7500000);
+        size.width * 0.0485000,
+        size.height * 0.1303333,
+        size.width * 0.1380200,
+        size.height * 0.8205000,
+        size.width * 0.1948100,
+        size.height * 0.8350667);
     path0.cubicTo(
-        size.width * 0.3437500,
-        size.height * 0.7500000,
-        size.width * 0.6562500,
-        size.height * 0.7500000,
-        size.width * 0.8125000,
-        size.height * 0.7500000);
+        size.width * 0.3215200,
+        size.height * 0.8350667,
+        size.width * 0.6754900,
+        size.height * 0.8384667,
+        size.width * 0.8021900,
+        size.height * 0.8384667);
     path0.cubicTo(
-        size.width * 0.8568750,
-        size.height * 0.7137500,
-        size.width * 0.8986750,
-        size.height * 0.2166500,
-        size.width * 0.8125000,
-        size.height * 0.2500000);
+        size.width * 0.8575100,
+        size.height * 0.8238333,
+        size.width * 0.9481900,
+        size.height * 0.1226333,
+        size.width * 0.8031900,
+        size.height * 0.1658333);
     path0.cubicTo(
-        size.width * 0.6562500,
-        size.height * 0.2500000,
-        size.width * 0.6562500,
-        size.height * 0.2500000,
-        size.width * 0.1875000,
-        size.height * 0.2500000);
+        size.width * 0.6765200,
+        size.height * 0.1658333,
+        size.width * 0.5751200,
+        size.height * 0.1623333,
+        size.width * 0.1948100,
+        size.height * 0.1623333);
     path0.close();
 
     canvas.drawPath(path0, paint0);
