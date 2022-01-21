@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,13 +12,12 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        textTheme: GoogleFonts.kumbhSansTextTheme(),
       ),
       home: const MyHomePage(),
     );
@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Color _color = Color(0xFFd8AA38);
+  final Color _color = const Color(0xFFd8AA38);
 
   @override
   Widget build(BuildContext context) {
@@ -92,8 +92,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            Positioned(
-              top: 90,
+           Positioned(
+               top: 90,
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Column(
@@ -110,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 "Hello",
                                 style: TextStyle(
                                   color: Colors.white54,
-                                  fontSize: 20,
+                                  fontSize: 25,
                                 ),
                               ),
                               SizedBox(),
@@ -123,8 +123,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 "Moritz",
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.w800),
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -135,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     height: 30,
                                   ),
                                   const Text(
-                                    "16 C New York",
+                                    "16°C NewYork",
                                     style: TextStyle(
                                       color: Colors.grey,
                                     ),
@@ -147,9 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 40,
-                    ),
+                    const SizedBox(height: 40),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Padding(
@@ -157,114 +155,279 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Row(
                           children: [
                             _widget("Living room"),
-                            const SizedBox(
-                              width: 10,
-                            ),
+                            const SizedBox(width: 10),
                             _widget("Kitchen"),
-                            const SizedBox(
-                              width: 10,
-                            ),
+                            const SizedBox(width: 10),
                             _widget("Bedroom"),
-                            const SizedBox(
-                              width: 10,
-                            ),
+                            const SizedBox(width: 10),
                             _widget("Bathroom"),
-                            const SizedBox(
-                              width: 10,
-                            ),
+                            const SizedBox(width: 10),
                             _widget("Office"),
-                            const SizedBox(
-                              width: 10,
-                            ),
+                            const SizedBox(width: 10),
                           ],
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-
-                    Container(
-                      height: 100,
-                      width: 170,
-                      margin: const EdgeInsets.symmetric(horizontal: 30),
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          gradient: RadialGradient(
-                            center: Alignment.topLeft,
-                            radius: 1.3,
-                            transform: const GradientRotation(0.6),
-                            colors: [
-                              _color,
-                              const Color(0xFF141110),
-                            ],
-                          ),
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            gradient: const LinearGradient(
-                              begin: Alignment.topLeft,
-                              colors: [Color(0xFF121212), Colors.black],
-                            ),
-                            // color: Colors.black,
-                          ),
-                          margin: const EdgeInsets.all(1.5),
-                          child: const Center(
-                              child: Text(
-                            "data",
-                            style: TextStyle(color: Colors.white),
-                          )),
+                    const SizedBox(height: 30),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: 10,
+                      itemBuilder: (context, index) => const ListTile(
+                        title: Text(
+                          "data",
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
                     // Container(
-                    //   child: SingleChildScrollView(
-                    //     child: GridView(
-                    //       gridDelegate:
-                    //           const SliverGridDelegateWithFixedCrossAxisCount(
-                    //               crossAxisCount: 2),
-                    //       children: [
-                    //         GridTile(
-                    //           header: const GridTileBar(
-                    //             title: Text(
-                    //               "Living room",
-                    //               style: TextStyle(
-                    //                 color: Colors.white,
-                    //                 fontSize: 20,
-                    //               ),
-                    //             ),
-                    //             backgroundColor: Colors.transparent,
-                    //           ),
-                    //           child: Image.asset(
-                    //             "assets/icon/sun.png",
-                    //             color: _color,
-                    //             height: 200,
-                    //           ),
-                    //         )
-                    //       ],
-                    //     ),
+                    //         height: 50,
+                    //         width: 50,
+                    //         color: Colors.amber,
+                    //       ),
+                    //       Container(
+                    //         height: 50,
+                    //         width: 50,
+                    //         color: Colors.brown,
+                    //       ),
+                    //       Container(
+                    //         height: 50,
+                    //         width: 50,
+                    //         color: Colors.blueGrey,
+                    //       ),
+                    //       Container(
+                    //         height: 50,
+                    //         width: 50,
+                    //         color: Colors.deepPurple,
+                    //       ),
+                    //       Container(
+                    //         height: 50,
+                    //         width: 50,
+                    //         color: Colors.cyanAccent,
+                    //       ),
+                    //       Container(
+                    //         height: 50,
+                    //         width: 50,
+                    //         color: Colors.cyan,
+                    //       ),
+                    //       Container(
+                    //         height: 50,
+                    //         width: 50,
+                    //         color: Colors.deepPurpleAccent,
+                    //       ),
+                    //       Container(
+                    //         height: 50,
+                    //         width: 50,
+                    //         color: Colors.lightBlue,
+                    //       ),
+                    //       Container(
+                    //         height: 50,
+                    //         width: 50,
+                    //         color: Colors.deepOrangeAccent,
+                    //       ),
+                    //       Container(
+                    //         height: 50,
+                    //         width: 50,
+                    //         color: Colors.orangeAccent,
+                    //       ),
+                    //       Container(
+                    //         height: 50,
+                    //         width: 50,
+                    //         color: Colors.purpleAccent,
+                    //       ),
+                    //       Container(
+                    //         height: 50,
+                    //         width: 50,
+                    //         color: Colors.greenAccent,
+                    //       ),
+                    //       Container(
+                    //         height: 50,
+                    //         width: 50,
+                    //         color: Colors.deepPurple,
+                    //       ),
+                    //       Container(
+                    //         height: 50,
+                    //         width: 50,
+                    //         color: Colors.lightGreenAccent,
+                    //       ),
+                    //       Container(
+                    //         height: 50,
+                    //         width: 50,
+                    //         color: Colors.amber,
+                    //       ),
+                    //       Container(
+                    //         height: 50,
+                    //         width: 50,
+                    //         color: Colors.blue,
+                    //       ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(8.0),
+                    //   child: Column(
+                    //     children: [
+                    //     ],
                     //   ),
-                    // ),
+                    // )
                   ],
                 ),
               ),
             ),
             Positioned(
               bottom: 10,
-              child: Container(
-                child: Stack(
-                  children: [
-                    CustomPaint(
-                      size: Size(MediaQuery.of(context).size.width, 100),
-                      painter: RPSCustomPainter(),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  CustomPaint(
+                    size: Size(MediaQuery.of(context).size.width, 100),
+                    painter: RPSCustomPainter(),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width - 100,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.home_outlined,
+                            color: Colors.white,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.home_outlined,
+                            color: Colors.white,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.home_outlined,
+                            color: Colors.white,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.home_outlined,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  )
+                ],
               ),
-            )
+            ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _gridTile() {
+    return Container(
+      height: 100,
+      width: 170,
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          gradient: const RadialGradient(
+            center: Alignment.topLeft,
+            radius: 1.3,
+            transform: GradientRotation(0.6),
+            colors: [
+              Colors.orange,
+              Color(0xFF141110),
+            ],
+          ),
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              colors: [Color(0xFF121212), Colors.black],
+            ),
+            // color: Colors.black,
+          ),
+          margin: const EdgeInsets.all(1.5),
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: GridTile(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Gate 2",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white),
+                  ),
+                  const Text(
+                    "Unlocked",
+                    style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const Icon(
+                        Icons.lock,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                      const SizedBox(width: 5),
+                      Image.asset(
+                        "assets/icon/swipe.png",
+                        height: 30,
+                        width: 30,
+                      ),
+                      const SizedBox(width: 5),
+                      Draggable(
+                        axis: Axis.horizontal,
+                        maxSimultaneousDrags: 3,
+                        rootOverlay: false,
+                        child: Container(
+                          padding: const EdgeInsets.all(5),
+                          decoration: const BoxDecoration(
+                            color: Colors.white12,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(100),
+                            ),
+                          ),
+                          child: Icon(
+                            Icons.lock_open,
+                            color: _color,
+                            size: 30,
+                          ),
+                        ),
+                        feedback: Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.white12,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(100),
+                            ),
+                          ),
+                          child: const Icon(
+                            Icons.lock_open,
+                            color: Colors.transparent,
+                            size: 40,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -303,35 +466,35 @@ class RPSCustomPainter extends CustomPainter {
       ..strokeWidth = 1.5;
 
     Path path0 = Path();
-    path0.moveTo(size.width * 0.1948100, size.height * 0.1623333);
+    path0.moveTo(size.width * 0.1500300, size.height * 0.1238500);
     path0.cubicTo(
-        size.width * 0.0485000,
-        size.height * 0.1303333,
-        size.width * 0.1380200,
-        size.height * 0.8205000,
-        size.width * 0.1948100,
-        size.height * 0.8350667);
+        size.width * 0.0037200,
+        size.height * 0.1023500,
+        size.width * 0.0522600,
+        size.height * 0.7552500,
+        size.width * 0.1500500,
+        size.height * 0.8761750);
     path0.cubicTo(
-        size.width * 0.3215200,
-        size.height * 0.8350667,
-        size.width * 0.6754900,
-        size.height * 0.8384667,
-        size.width * 0.8021900,
-        size.height * 0.8384667);
+        size.width * 0.2767600,
+        size.height * 0.8761750,
+        size.width * 0.7234100,
+        size.height * 0.8735500,
+        size.width * 0.8501100,
+        size.height * 0.8735500);
     path0.cubicTo(
-        size.width * 0.8575100,
-        size.height * 0.8238333,
-        size.width * 0.9481900,
-        size.height * 0.1226333,
-        size.width * 0.8031900,
-        size.height * 0.1658333);
+        size.width * 0.9464300,
+        size.height * 0.7575750,
+        size.width * 0.9946900,
+        size.height * 0.0944750,
+        size.width * 0.8496900,
+        size.height * 0.1268750);
     path0.cubicTo(
-        size.width * 0.6765200,
-        size.height * 0.1658333,
-        size.width * 0.5751200,
-        size.height * 0.1623333,
-        size.width * 0.1948100,
-        size.height * 0.1623333);
+        size.width * 0.7230200,
+        size.height * 0.1268750,
+        size.width * 0.5303400,
+        size.height * 0.1263500,
+        size.width * 0.1500300,
+        size.height * 0.1238500);
     path0.close();
 
     canvas.drawPath(path0, paint0);
