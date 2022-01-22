@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,16 +25,35 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
 
-  final Color _color = const Color(0xFFd8AA38);
+  final Color _primaryColor = const Color(0xFFd8AA38);
+  final Color _secondaryColor = const Color(0xFF787878);
+  final List<String> _room = [
+    "Living Room",
+    "Kitchen",
+    "Bedroom",
+    "Bathroom",
+    "Dining Room",
+  ];
+  final List<bool> _roomState = [
+    true,
+    false,
+    false,
+    false,
+    false,
+  ];
   final List<String> _electicApplianceImages = [
-    "assets/icons/hang-lamp.png",
-    "assets/icons/hang-lamp.png",
-    "assets/icons/coffee-machine.png",
-    "assets/icons/ac.png",
-    "assets/icons/monitor.png",
-    "assets/icons/chandelier.png",
+    "",
+    "",
+    "assets/icon/hang-lamp.png",
+    "assets/icon/hang-lamp.png",
+    "assets/icon/coffee-machine.png",
+    "assets/icon/ac.png",
+    "assets/icon/monitor.png",
+    "assets/icon/chandelier.png",
   ];
   final List<String> _electicApplianceTitle = [
+    "Gate 2",
+    "Gate 1",
     "Studio Lamp",
     "Door Light",
     "Coffee Machine",
@@ -44,6 +65,8 @@ class MyHomePage extends StatelessWidget {
     "",
     "",
     "",
+    "",
+    "",
     "23°",
     "",
     "",
@@ -52,11 +75,15 @@ class MyHomePage extends StatelessWidget {
     "",
     "",
     "",
+    "",
     "05:25 · Latte",
+    "",
     "",
     "",
   ];
   final List<String> _electricApplianceSubtitle = [
+    "",
+    "",
     "Philips Hue",
     "Amazon 1",
     "Phillips Smart Brew",
@@ -65,14 +92,18 @@ class MyHomePage extends StatelessWidget {
     ""
   ];
   final List<String> _gridFooter = [
-    "assets/icons/dot.png",
-    "assets/icons/wall-clock.png",
-    "assets/icons/wall-clock.png",
-    "assets/icons/left-arrow.png",
-    "assets/icons/transperant-image.png",
-    "assets/icons/wall-clock.png",
+    "",
+    "",
+    "assets/icon/dot.png",
+    "assets/icon/wall-clock.png",
+    "assets/icon/wall-clock.png",
+    "assets/icon/left-arrow.png",
+    "assets/icon/transperant-image.png",
+    "assets/icon/wall-clock.png",
   ];
-  final List<bool> _isActive = [
+  final List<bool> _elecricApplianceState = [
+    false,
+    true,
     true,
     false,
     true,
@@ -164,7 +195,7 @@ class MyHomePage extends StatelessWidget {
                                   children: [
                                     Image.asset(
                                       "assets/icon/sun.png",
-                                      color: _color,
+                                      color: _primaryColor,
                                       height: 30,
                                     ),
                                     const Text(
@@ -187,16 +218,8 @@ class MyHomePage extends StatelessWidget {
                           padding: const EdgeInsets.only(left: 20),
                           child: Row(
                             children: [
-                              _area("Living room", true),
-                              const SizedBox(width: 10),
-                              _area("Kitchen", true),
-                              const SizedBox(width: 10),
-                              _area("Bedroom", true),
-                              const SizedBox(width: 10),
-                              _area("Bathroom", true),
-                              const SizedBox(width: 10),
-                              _area("Office", true),
-                              const SizedBox(width: 10),
+                              for (var i = 0; i < _room.length; i++)
+                                _roomTabs(_room[i], _roomState[i]),
                             ],
                           ),
                         ),
@@ -205,17 +228,34 @@ class MyHomePage extends StatelessWidget {
                     ],
                   ),
                 ),
-                SliverGrid(
-                  delegate: SliverChildListDelegate.fixed([
-                    _gridTile("Gate 2", false),
-                  ]),
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200.0,
-                    mainAxisSpacing: 10.0,
-                    crossAxisSpacing: 5.9,
-                    childAspectRatio: 175 / 96,
+                SliverPadding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  sliver: SliverGrid(
+                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 200.0,
+                      mainAxisSpacing: 25.0,
+                      crossAxisSpacing: 17.0,
+                      childAspectRatio: 180 / 110,
+                    ),
+                    delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                        return index <= 1
+                            ? _lockGridTile(_electicApplianceTitle[index],
+                                _elecricApplianceState[index])
+                            : _electricAppliancesGridTile(
+                                _electicApplianceImages[index],
+                                _electicApplianceTitle[index],
+                                _afterTitleText[index],
+                                _electricApplianceSubtitle[index],
+                                _afterSubtitleText[index],
+                                _gridFooter[index],
+                                _elecricApplianceState[index],
+                              );
+                      },
+                      childCount: _electicApplianceImages.length,
+                    ),
                   ),
-                )
+                ),
               ],
             ),
             // Positioned(
@@ -232,7 +272,6 @@ class MyHomePage extends StatelessWidget {
             //     // blendMode: BlendMode.xor,
             //   ),
             // ),
-
             Positioned(
               bottom: 10,
               child: Stack(
@@ -256,7 +295,7 @@ class MyHomePage extends StatelessWidget {
                           onPressed: () {},
                           icon: Icon(
                             Icons.home_outlined,
-                            color: _color,
+                            color: _primaryColor,
                           ),
                         ),
                         IconButton(
@@ -292,9 +331,16 @@ class MyHomePage extends StatelessWidget {
     );
   }
 
-  Widget _electricAppliances(String title, bool isLocked) {
+  Widget _electricAppliancesGridTile(
+      String image,
+      String titleText,
+      String afterTitleText,
+      String subtitle,
+      String afterSubtitleText,
+      String footerImage,
+      bool isLocked) {
     return SizedBox(
-      height: 111,
+      height: 110,
       width: 180,
       child: DecoratedBox(
         decoration:
@@ -308,7 +354,7 @@ class MyHomePage extends StatelessWidget {
                   radius: 1.3,
                   transform: const GradientRotation(0.6),
                   colors: [
-                    _color,
+                    _primaryColor,
                     const Color(0xFF141110),
                   ],
                 )
@@ -336,21 +382,23 @@ class MyHomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
-                    height: 10,
-                    width: 10,
+                    height: 8,
+                    width: 8,
                     decoration: BoxDecoration(
-                      color: _color,
+                      color: isLocked ? _primaryColor : _secondaryColor,
                       borderRadius: const BorderRadius.all(
                         Radius.circular(100),
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: 2,
+                  const SizedBox(
+                    width: 3,
                   ),
                   Text(
-                    "ON",
-                    style: TextStyle(color: _color),
+                    isLocked ? "ON" : "OFF",
+                    style: TextStyle(
+                        color: isLocked ? _primaryColor : _secondaryColor,
+                        fontSize: 11),
                   )
                 ],
               ),
@@ -358,34 +406,58 @@ class MyHomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Image.asset(
-                    "assets/icon/hang-lamp.png",
-                    height: 30,
+                    image,
+                    height: 27,
                     color: Colors.white,
                   ),
-                  const SizedBox(height: 5),
-                  const Text(
-                    "Studio Light",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16),
+                  const SizedBox(height: 7),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        titleText,
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16),
+                      ),
+                      Text(
+                        afterTitleText,
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 5),
-                  const Text(
-                    "Phillips Hue",
-                    style: TextStyle(
+                  Text(
+                    subtitle,
+                    style: const TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.w400,
                         fontSize: 10),
                   ),
+                  const SizedBox(
+                    height: 7,
+                  ),
+                  Text(
+                    afterSubtitleText,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        ),
+                  ),
                 ],
               ),
-              footer: const Align(
-                  alignment: Alignment.bottomRight,
-                  child: Icon(
-                    Icons.timer,
-                    color: Colors.white,
-                  )),
+              footer: Align(
+                alignment: Alignment.bottomRight,
+                child: Image.asset(
+                  footerImage,
+                  height: 18,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
         ),
@@ -393,40 +465,40 @@ class MyHomePage extends StatelessWidget {
     );
   }
 
-  Widget _gridTile(String title, bool isLocked) {
+  Widget _lockGridTile(String title, bool isLocked) {
     return SizedBox(
-      height: 111,
+      height: 110,
       width: 180,
       child: DecoratedBox(
         decoration:
             //Radial gradient for activated tile
             BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: isLocked ? null : Color(0xff2252525),
+          color: isLocked ? Color(0xff2252525) : null,
           gradient: isLocked
-              ? RadialGradient(
+              ? null
+              : RadialGradient(
                   center: Alignment.topLeft,
                   radius: 1.3,
                   transform: const GradientRotation(0.6),
                   colors: [
-                    _color,
+                    _primaryColor,
                     const Color(0xFF141110),
                   ],
-                )
-              : null,
+                ),
         ),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             gradient: isLocked
-                ? const LinearGradient(
+                ? null
+                : const LinearGradient(
                     begin: Alignment.topLeft,
                     colors: [
                       Color(0xFF121212),
                       Colors.black,
                     ],
-                  )
-                : null,
+                  ),
             color: Colors.black,
           ),
           margin: const EdgeInsets.all(1.5),
@@ -436,9 +508,9 @@ class MyHomePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Gate 2",
-                    style: TextStyle(
+                  Text(
+                    title,
+                    style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
                         color: Colors.white),
@@ -456,12 +528,7 @@ class MyHomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       isLocked
-                          ? Image.asset(
-                              "assets/icon/lock.png",
-                              color: Colors.white,
-                              height: 30,
-                            )
-                          : Draggable(
+                          ? Draggable(
                               axis: Axis.horizontal,
                               child: Container(
                                 padding: const EdgeInsets.all(7),
@@ -487,25 +554,35 @@ class MyHomePage extends StatelessWidget {
                                   ),
                                 ),
                               ),
+                            )
+                          : Image.asset(
+                              "assets/icon/lock.png",
+                              color: Colors.white,
+                              height: 30,
                             ),
                       const SizedBox(width: 6),
                       isLocked
-                          ? Image.asset(
-                              "assets/icon/swipe.png",
-                              height: 30,
-                              width: 30,
-                            )
-                          : RotatedBox(
+                          ? RotatedBox(
                               quarterTurns: 2,
                               child: Image.asset(
                                 "assets/icon/swipe.png",
                                 height: 30,
                                 width: 30,
                               ),
+                            )
+                          : Image.asset(
+                              "assets/icon/swipe.png",
+                              height: 30,
+                              width: 30,
                             ),
                       const SizedBox(width: 6),
                       isLocked
-                          ? Draggable(
+                          ? Image.asset(
+                              "assets/icon/unlock.png",
+                              color: Colors.white,
+                              height: 30,
+                            )
+                          : Draggable(
                               axis: Axis.horizontal,
                               child: Container(
                                 padding: const EdgeInsets.all(7),
@@ -517,7 +594,7 @@ class MyHomePage extends StatelessWidget {
                                 ),
                                 child: Image.asset(
                                   "assets/icon/unlock.png",
-                                  color: _color,
+                                  color: _primaryColor,
                                   height: 30,
                                 ),
                               ),
@@ -532,11 +609,6 @@ class MyHomePage extends StatelessWidget {
                                 ),
                               ),
                             )
-                          : Image.asset(
-                              "assets/icon/unlock.png",
-                              color: Colors.white,
-                              height: 30,
-                            ),
                     ],
                   ),
                 ],
@@ -548,14 +620,15 @@ class MyHomePage extends StatelessWidget {
     );
   }
 
-  Widget _area(String title, bool isActive) {
+  Widget _roomTabs(String title, bool isActive) {
     return Container(
       width: 105,
       height: 33,
+      margin: const EdgeInsets.only(right: 10),
       alignment: Alignment.center,
       decoration: BoxDecoration(
         border: Border.all(
-          color: _color,
+          color: isActive ? _primaryColor : _secondaryColor,
           width: 1,
         ),
         borderRadius: BorderRadius.circular(30),
