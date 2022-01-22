@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -50,6 +51,12 @@ class MyHomePage extends StatelessWidget {
     "assets/icon/ac.png",
     "assets/icon/monitor.png",
     "assets/icon/chandelier.png",
+    "assets/icon/hang-lamp.png",
+    "assets/icon/hang-lamp.png",
+    "assets/icon/coffee-machine.png",
+    "assets/icon/ac.png",
+    "assets/icon/monitor.png",
+    "assets/icon/chandelier.png",
   ];
   final List<String> _electicApplianceTitle = [
     "Gate 2",
@@ -60,8 +67,20 @@ class MyHomePage extends StatelessWidget {
     "A.C.",
     "LR TV",
     "Chandelier",
+    "Studio Lamp",
+    "Door Light",
+    "Coffee Machine",
+    "A.C.",
+    "LR TV",
+    "Chandelier",
   ];
   final List<String> _afterTitleText = [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "23°",
     "",
     "",
     "",
@@ -80,6 +99,12 @@ class MyHomePage extends StatelessWidget {
     "",
     "",
     "",
+    "",
+    "",
+    "05:25 · Latte",
+    "",
+    "",
+    "",
   ];
   final List<String> _electricApplianceSubtitle = [
     "",
@@ -89,7 +114,13 @@ class MyHomePage extends StatelessWidget {
     "Phillips Smart Brew",
     "LG Smart",
     "Smasung QLED",
-    ""
+    "",
+    "Philips Hue",
+    "Amazon 1",
+    "Phillips Smart Brew",
+    "LG Smart",
+    "Smasung QLED",
+    "",
   ];
   final List<String> _gridFooter = [
     "",
@@ -100,10 +131,22 @@ class MyHomePage extends StatelessWidget {
     "assets/icon/left-arrow.png",
     "assets/icon/transperant-image.png",
     "assets/icon/wall-clock.png",
+    "assets/icon/dot.png",
+    "assets/icon/wall-clock.png",
+    "assets/icon/wall-clock.png",
+    "assets/icon/left-arrow.png",
+    "assets/icon/transperant-image.png",
+    "assets/icon/wall-clock.png",
   ];
   final List<bool> _elecricApplianceState = [
     false,
     true,
+    true,
+    false,
+    true,
+    true,
+    false,
+    false,
     true,
     false,
     true,
@@ -231,11 +274,12 @@ class MyHomePage extends StatelessWidget {
                 SliverPadding(
                   padding: const EdgeInsets.only(left: 15, right: 15),
                   sliver: SliverGrid(
-                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 200.0,
                       mainAxisSpacing: 25.0,
                       crossAxisSpacing: 17.0,
-                      childAspectRatio: 180 / 110,
+                      childAspectRatio: 180 / 113,
                     ),
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
@@ -256,6 +300,7 @@ class MyHomePage extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SliverPadding(padding: EdgeInsets.only(top: 20)),
               ],
             ),
             // Positioned(
@@ -291,33 +336,42 @@ class MyHomePage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.home_outlined,
-                            color: _primaryColor,
-                          ),
+                        Icon(
+                          Icons.home_outlined,
+                          color: _primaryColor,
+                          size: 30,
                         ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.home_outlined,
-                            color: Colors.white,
-                          ),
+                        Image.asset(
+                          "assets/icon/four-dots.png",
+                          color: Colors.white,
+                          height: 25,
                         ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.home_outlined,
-                            color: Colors.white,
-                          ),
+                        Stack(
+                          children: [
+                            Image.asset(
+                              "assets/icon/bell.png",
+                              color: Colors.white,
+                              height: 25,
+                            ),
+                            Container(
+                              height: 10,
+                              width: 10,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: _primaryColor,
+                              ),
+                              child: const Text("2",
+                                  style: TextStyle(
+                                      fontSize: 7,
+                                      fontWeight: FontWeight.w800)),
+                            ),
+                          ],
                         ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.home_outlined,
-                            color: Colors.white,
-                          ),
+                        Image.asset(
+                          "assets/icon/settings.png",
+                          color: Colors.white,
+                          height: 25,
                         ),
                       ],
                     ),
@@ -340,14 +394,14 @@ class MyHomePage extends StatelessWidget {
       String footerImage,
       bool isLocked) {
     return SizedBox(
-      height: 110,
+      height: 113,
       width: 180,
       child: DecoratedBox(
         decoration:
             //Radial gradient for activated tile
             BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: isLocked ? null : Color(0xff2252525),
+          borderRadius: BorderRadius.circular(12),
+          color: isLocked ? null : const Color(0xFF252525),
           gradient: isLocked
               ? RadialGradient(
                   center: Alignment.topLeft,
@@ -362,7 +416,7 @@ class MyHomePage extends StatelessWidget {
         ),
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(12),
             gradient: isLocked
                 ? const LinearGradient(
                     begin: Alignment.topLeft,
@@ -376,29 +430,35 @@ class MyHomePage extends StatelessWidget {
           ),
           margin: const EdgeInsets.all(1.5),
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(12, 8, 10, 8),
+            padding: const EdgeInsets.fromLTRB(12, 10, 10, 8),
             child: GridTile(
               header: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
-                    height: 8,
-                    width: 8,
-                    decoration: BoxDecoration(
-                      color: isLocked ? _primaryColor : _secondaryColor,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(100),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: Container(
+                      height: 8,
+                      width: 8,
+                      decoration: BoxDecoration(
+                        color: isLocked ? _primaryColor : _secondaryColor,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(100),
+                        ),
                       ),
                     ),
                   ),
                   const SizedBox(
                     width: 3,
                   ),
-                  Text(
-                    isLocked ? "ON" : "OFF",
-                    style: TextStyle(
-                        color: isLocked ? _primaryColor : _secondaryColor,
-                        fontSize: 11),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 7),
+                    child: Text(
+                      isLocked ? "ON" : "OFF",
+                      style: TextStyle(
+                          color: isLocked ? _primaryColor : _secondaryColor,
+                          fontSize: 11),
+                    ),
                   )
                 ],
               ),
@@ -439,14 +499,15 @@ class MyHomePage extends StatelessWidget {
                         fontSize: 10),
                   ),
                   const SizedBox(
-                    height: 7,
+                    height: 11,
                   ),
                   Text(
                     afterSubtitleText,
                     style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                        ),
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12,
+                    ),
                   ),
                 ],
               ),
@@ -467,14 +528,14 @@ class MyHomePage extends StatelessWidget {
 
   Widget _lockGridTile(String title, bool isLocked) {
     return SizedBox(
-      height: 110,
+      height: 113,
       width: 180,
       child: DecoratedBox(
         decoration:
             //Radial gradient for activated tile
             BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: isLocked ? Color(0xff2252525) : null,
+          borderRadius: BorderRadius.circular(12),
+          color: isLocked ? const Color(0xFF252525) : null,
           gradient: isLocked
               ? null
               : RadialGradient(
@@ -489,7 +550,7 @@ class MyHomePage extends StatelessWidget {
         ),
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(12),
             gradient: isLocked
                 ? null
                 : const LinearGradient(
@@ -503,7 +564,7 @@ class MyHomePage extends StatelessWidget {
           ),
           margin: const EdgeInsets.all(1.5),
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(12, 8, 10, 8),
+            padding: const EdgeInsets.fromLTRB(12, 12, 10, 0),
             child: GridTile(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -511,15 +572,15 @@ class MyHomePage extends StatelessWidget {
                   Text(
                     title,
                     style: const TextStyle(
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.w600,
                         color: Colors.white),
                   ),
-                  const SizedBox(height: 2),
+                  const SizedBox(height: 3),
                   const Text(
                     "Unlocked",
                     style: TextStyle(
-                        fontSize: 11,
+                        fontSize: 10,
                         fontWeight: FontWeight.w500,
                         color: Colors.grey),
                   ),
@@ -648,22 +709,22 @@ class MyCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint0 = Paint()
-      ..color = const Color.fromARGB(128, 255, 255, 255)
+      ..color = const Color.fromARGB(225, 255, 255, 255)
       ..style = PaintingStyle.fill
       ..strokeWidth = 2.0
       ..shader = const LinearGradient(
-        colors: [Colors.white, Colors.black],
+        colors: [Colors.white38, Colors.white10],
       ).createShader(Rect.fromLTWH(0, 0, size.width, size.height))
-      // ..strokeCap = StrokeCap.round
+      ..strokeCap = StrokeCap.round
       // ..isAntiAlias = true
       // ..blendMode = BlendMode.srcATop
-      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 2.0)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.inner, 2.0)
       ..filterQuality = FilterQuality.low
       ..colorFilter = ColorFilter.mode(
         Colors.black.withOpacity(0.6),
         BlendMode.srcATop,
       );
-    // ..imageFilter = ImageFilter.blur(sigmaX: 3, sigmaY: 3);
+    // ..imageFilter = ImageFilter.blur(sigmaX: 2, sigmaY: 2);
     // ..blendMode = BlendMode.xor;
 
     Path path0 = Path();
