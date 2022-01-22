@@ -92,183 +92,101 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-           Positioned(
-               top: 90,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: const [
-                              Text(
-                                "Hello",
-                                style: TextStyle(
-                                  color: Colors.white54,
-                                  fontSize: 25,
-                                ),
-                              ),
-                              SizedBox(),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                "Moritz",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 35,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Image.asset(
-                                    "assets/icon/sun.png",
-                                    color: _color,
-                                    height: 30,
-                                  ),
-                                  const Text(
-                                    "16°C NewYork",
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 40),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: Row(
+            CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
                           children: [
-                            _widget("Living room"),
-                            const SizedBox(width: 10),
-                            _widget("Kitchen"),
-                            const SizedBox(width: 10),
-                            _widget("Bedroom"),
-                            const SizedBox(width: 10),
-                            _widget("Bathroom"),
-                            const SizedBox(width: 10),
-                            _widget("Office"),
-                            const SizedBox(width: 10),
+                            Row(
+                              children: const [
+                                Text(
+                                  "Hello",
+                                  style: TextStyle(
+                                    color: Colors.white54,
+                                    fontSize: 25,
+                                  ),
+                                ),
+                                SizedBox(),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "Moritz",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 35,
+                                      fontWeight: FontWeight.w800),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Image.asset(
+                                      "assets/icon/sun.png",
+                                      color: _color,
+                                      height: 30,
+                                    ),
+                                    const Text(
+                                      "16°C NewYork",
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
                           ],
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 30),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: 10,
-                      itemBuilder: (context, index) => const ListTile(
-                        title: Text(
-                          "data",
-                          style: TextStyle(color: Colors.white),
+                      const SizedBox(height: 40),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Row(
+                            children: [
+                              _widget("Living room"),
+                              const SizedBox(width: 10),
+                              _widget("Kitchen"),
+                              const SizedBox(width: 10),
+                              _widget("Bedroom"),
+                              const SizedBox(width: 10),
+                              _widget("Bathroom"),
+                              const SizedBox(width: 10),
+                              _widget("Office"),
+                              const SizedBox(width: 10),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    // Container(
-                    //         height: 50,
-                    //         width: 50,
-                    //         color: Colors.amber,
-                    //       ),
-                    //       Container(
-                    //         height: 50,
-                    //         width: 50,
-                    //         color: Colors.brown,
-                    //       ),
-                    //       Container(
-                    //         height: 50,
-                    //         width: 50,
-                    //         color: Colors.blueGrey,
-                    //       ),
-                    //       Container(
-                    //         height: 50,
-                    //         width: 50,
-                    //         color: Colors.deepPurple,
-                    //       ),
-                    //       Container(
-                    //         height: 50,
-                    //         width: 50,
-                    //         color: Colors.cyanAccent,
-                    //       ),
-                    //       Container(
-                    //         height: 50,
-                    //         width: 50,
-                    //         color: Colors.cyan,
-                    //       ),
-                    //       Container(
-                    //         height: 50,
-                    //         width: 50,
-                    //         color: Colors.deepPurpleAccent,
-                    //       ),
-                    //       Container(
-                    //         height: 50,
-                    //         width: 50,
-                    //         color: Colors.lightBlue,
-                    //       ),
-                    //       Container(
-                    //         height: 50,
-                    //         width: 50,
-                    //         color: Colors.deepOrangeAccent,
-                    //       ),
-                    //       Container(
-                    //         height: 50,
-                    //         width: 50,
-                    //         color: Colors.orangeAccent,
-                    //       ),
-                    //       Container(
-                    //         height: 50,
-                    //         width: 50,
-                    //         color: Colors.purpleAccent,
-                    //       ),
-                    //       Container(
-                    //         height: 50,
-                    //         width: 50,
-                    //         color: Colors.greenAccent,
-                    //       ),
-                    //       Container(
-                    //         height: 50,
-                    //         width: 50,
-                    //         color: Colors.deepPurple,
-                    //       ),
-                    //       Container(
-                    //         height: 50,
-                    //         width: 50,
-                    //         color: Colors.lightGreenAccent,
-                    //       ),
-                    //       Container(
-                    //         height: 50,
-                    //         width: 50,
-                    //         color: Colors.amber,
-                    //       ),
-                    //       Container(
-                    //         height: 50,
-                    //         width: 50,
-                    //         color: Colors.blue,
-                    //       ),
-                    // Padding(
-                    //   padding: const EdgeInsets.all(8.0),
-                    //   child: Column(
-                    //     children: [
-                    //     ],
-                    //   ),
-                    // )
-                  ],
+                      const SizedBox(height: 30),
+                    ],
+                  ),
                 ),
-              ),
+                SliverGrid(
+                    delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                        return _gridTile();
+                      },
+                      childCount: 10,
+                    ),
+                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 200.0,
+                      mainAxisSpacing: 10.0,
+                      crossAxisSpacing: 10.0,
+                      childAspectRatio: 170 / 100,
+                    ),
+                  )
+              ],
             ),
             Positioned(
               bottom: 10,
@@ -332,13 +250,13 @@ class _MyHomePageState extends State<MyHomePage> {
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          gradient: const RadialGradient(
+          gradient: RadialGradient(
             center: Alignment.topLeft,
             radius: 1.3,
-            transform: GradientRotation(0.6),
+            transform: const GradientRotation(0.6),
             colors: [
-              Colors.orange,
-              Color(0xFF141110),
+              _color,
+              const Color(0xFF141110),
             ],
           ),
         ),
