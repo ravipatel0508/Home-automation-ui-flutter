@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -18,13 +17,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         textTheme: GoogleFonts.kumbhSansTextTheme(),
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -43,13 +42,15 @@ class _MyHomePageState extends State<MyHomePage> {
     "Dining Room",
   ];
 
-  List<bool> _roomState = [
+  final List<bool> _roomState = [
     true,
     false,
     false,
     false,
     false,
   ];
+  //previousIndex is for the previous state of the room
+  var previousIndex = 0;
 
   final List<String> _electicApplianceImages = [
     "",
@@ -192,20 +193,39 @@ class _MyHomePageState extends State<MyHomePage> {
             slivers: [
               SliverAppBar(
                 primary: true,
-                title: const Text(
-                  "tempest",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.italic,
-                  ),
+                title: Stack(
+                  clipBehavior: Clip.none,
+                  // alignment: Alignment.topRight,
+                  children: [
+                    Positioned(
+                      right: -10,
+                      child: Container(
+                        height: 10,
+                        width: 10,
+                        decoration: BoxDecoration(
+                          color: _primaryColor,
+                          // shape: BoxShape.circle,
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      "tempest",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
                 ),
                 actions: [
-                  Image.asset(
-                    "assets/icon/add.png",
-                    color: Colors.white,
-                    height: 25,
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Image.asset(
+                      "assets/icon/add-icon.png",
+                    ),
                   ),
                 ],
                 centerTitle: true,
@@ -217,79 +237,97 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: SizedBox(height: 50),
               ),
               SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: const [
-                          Text(
-                            "Hello",
-                            style: TextStyle(
-                              color: Colors.white54,
-                              fontSize: 25,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                child: Column(
+                  children: 
+                    [Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
                         children: [
-                          const Text(
-                            "Moritz",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 35,
-                                fontWeight: FontWeight.w800),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Image.asset(
-                                "assets/icon/sun.png",
-                                color: _primaryColor,
-                                height: 30,
-                              ),
-                              const Text(
-                                "16°C · NewYork",
+                          Row(
+                            children: const [
+                              Text(
+                                "Hello",
                                 style: TextStyle(
-                                  color: Colors.grey,
+                                  color: Colors.white54,
+                                  fontSize: 25,
                                 ),
                               ),
                             ],
-                          )
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              const Text(
+                                "Moritz",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Image.asset(
+                                    "assets/icon/sun.png",
+                                    color: _primaryColor,
+                                    height: 30,
+                                  ),
+                                  const Text(
+                                    "16°C · NewYork",
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              const SliverPadding(
-                padding: EdgeInsets.only(top: 40),
-              ),
-              SliverToBoxAdapter(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Row(
-                      children: [
-                        for (var i = 0; i < _room.length; i++)
-                          _roomTabs(_room[i], _roomState[i], i),
-                      ],
                     ),
-                  ),
+                   const SizedBox(height: 40),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Row(
+                            children: [
+                              for (var i = 0; i < _room.length; i++)
+                                _roomTabs(_room[i], _roomState[i],i),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                  ],
                 ),
               ),
-              const SliverPadding(
-                padding: EdgeInsets.only(top: 35),
-              ),
+              // const SliverPadding(
+              //   padding: EdgeInsets.only(top: 40),
+              // ),
+              // SliverToBoxAdapter(
+              //   child: SingleChildScrollView(
+              //     scrollDirection: Axis.horizontal,
+              //     child: Padding(
+              //       padding: const EdgeInsets.only(left: 20),
+              //       child: Row(
+              //         children: [
+              //           for (var i = 0; i < _room.length; i++)
+              //             _roomTabs(_room[i], _roomState[i], i),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // const SliverPadding(
+              //   padding: EdgeInsets.only(top: 35),
+              // ),
               SliverPadding(
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 sliver: SliverGrid(
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200.0,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
                     mainAxisSpacing: 25.0,
                     crossAxisSpacing: 17.0,
                     childAspectRatio: 180 / 113,
@@ -313,7 +351,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              const SliverPadding(padding: EdgeInsets.only(top: 20)),
+              const SliverPadding(padding: EdgeInsets.only(top: 90)),
             ],
           ),
           Positioned(
@@ -699,7 +737,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return GestureDetector(
       onTap: () {
         setState(() {
+          _roomState[previousIndex] = false;
           _roomState[index] = !_roomState[index];
+          previousIndex = index;
         });
       },
       child: Container(
