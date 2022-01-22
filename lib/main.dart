@@ -24,14 +24,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({ Key? key }) : super(key: key);
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   final Color _color = const Color(0xFFd8AA38);
 
   @override
@@ -94,6 +89,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             CustomScrollView(
               slivers: [
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: 90),
+                ),
                 SliverToBoxAdapter(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -116,8 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               ],
                             ),
                             Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const Text(
                                   "Moritz",
@@ -154,15 +151,15 @@ class _MyHomePageState extends State<MyHomePage> {
                           padding: const EdgeInsets.only(left: 20),
                           child: Row(
                             children: [
-                              _widget("Living room"),
+                              _area("Living room",true),
                               const SizedBox(width: 10),
-                              _widget("Kitchen"),
+                              _area("Kitchen",true),
                               const SizedBox(width: 10),
-                              _widget("Bedroom"),
+                              _area("Bedroom",true),
                               const SizedBox(width: 10),
-                              _widget("Bathroom"),
+                              _area("Bathroom",true),
                               const SizedBox(width: 10),
-                              _widget("Office"),
+                              _area("Office",true),
                               const SizedBox(width: 10),
                             ],
                           ),
@@ -173,29 +170,46 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 SliverGrid(
-                    delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                        return _gridTile();
-                      },
-                      childCount: 10,
-                    ),
-                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 200.0,
-                      mainAxisSpacing: 10.0,
-                      crossAxisSpacing: 10.0,
-                      childAspectRatio: 170 / 100,
-                    ),
-                  )
+                  delegate: SliverChildListDelegate.fixed([
+                    _gridTile("Gate 2", false),
+                  ]),
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 200.0,
+                    mainAxisSpacing: 10.0,
+                    crossAxisSpacing: 5.9,
+                    childAspectRatio: 175 / 96,
+                  ),
+                )
               ],
             ),
+            // Positioned(
+            //   bottom: 15,
+            //   left: 15,
+            //   right: 15,
+            //   top: MediaQuery.of(context).size.height * 0.8,
+            //   child: BackdropFilter(
+            //     filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+            //     child: CustomPaint(
+            //       size: Size(MediaQuery.of(context).size.width, 100),
+            //       painter: MyCustomPainter(),
+            //     ),
+            //     // blendMode: BlendMode.xor,
+            //   ),
+            // ),
+             
             Positioned(
               bottom: 10,
               child: Stack(
+                // clipBehavior: Clip.antiAlias,
                 alignment: Alignment.center,
                 children: [
-                  CustomPaint(
-                    size: Size(MediaQuery.of(context).size.width, 100),
-                    painter: RPSCustomPainter(),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    alignment: Alignment.center,
+                    child: CustomPaint(
+                      size: Size(MediaQuery.of(context).size.width, 100),
+                      painter: MyCustomPainter(),
+                    ),
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width - 100,
@@ -204,9 +218,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: [
                         IconButton(
                           onPressed: () {},
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.home_outlined,
-                            color: Colors.white,
+                            color: _color,
                           ),
                         ),
                         IconButton(
@@ -236,42 +250,148 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
+         
           ],
         ),
       ),
     );
   }
 
-  Widget _gridTile() {
-    return Container(
-      height: 100,
-      width: 170,
-      margin: const EdgeInsets.symmetric(horizontal: 10),
+  Widget _electricAppliances(String title, bool isLocked) {
+    return SizedBox(
+      height: 111,
+      width: 180,
       child: DecoratedBox(
-        decoration: BoxDecoration(
+        decoration:
+            //Radial gradient for activated tile
+            BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          gradient: RadialGradient(
-            center: Alignment.topLeft,
-            radius: 1.3,
-            transform: const GradientRotation(0.6),
-            colors: [
-              _color,
-              const Color(0xFF141110),
-            ],
-          ),
+          color: isLocked ? null : Color(0xff2252525),
+          gradient: isLocked
+              ? RadialGradient(
+                  center: Alignment.topLeft,
+                  radius: 1.3,
+                  transform: const GradientRotation(0.6),
+                  colors: [
+                    _color,
+                    const Color(0xFF141110),
+                  ],
+                )
+              : null,
         ),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            gradient: const LinearGradient(
-              begin: Alignment.topLeft,
-              colors: [Color(0xFF121212), Colors.black],
-            ),
-            // color: Colors.black,
+            gradient: isLocked
+                ? const LinearGradient(
+                    begin: Alignment.topLeft,
+                    colors: [
+                      Color(0xFF121212),
+                      Colors.black,
+                    ],
+                  )
+                : null,
+            color: Colors.black,
           ),
           margin: const EdgeInsets.all(1.5),
           child: Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.fromLTRB(12, 8, 10, 8),
+            child: GridTile(
+              header: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    height: 10,
+                    width: 10,
+                    decoration: BoxDecoration(
+                      color: _color,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(100),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 2,
+                  ),
+                  Text(
+                    "ON",
+                    style: TextStyle(color: _color),
+                  )
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    "assets/icon/hang-lamp.png",
+                    height: 30,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(height: 5),
+                  const Text(
+                    "Studio Light",
+                    style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 16),
+                  ),
+                  const SizedBox(height: 5),
+                  const Text(
+                    "Phillips Hue",
+                    style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w400,fontSize: 10),
+                  ),
+                ],
+              ),
+              footer: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Icon(
+                    Icons.timer,
+                    color: Colors.white,
+                  )),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+
+ Widget _gridTile(String title, bool isLocked) {
+    return SizedBox(
+      height: 111,
+      width: 180,
+      child: DecoratedBox(
+        decoration:
+            //Radial gradient for activated tile
+            BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: isLocked ? null : Color(0xff2252525),
+          gradient: isLocked
+              ? RadialGradient(
+                  center: Alignment.topLeft,
+                  radius: 1.3,
+                  transform: const GradientRotation(0.6),
+                  colors: [
+                    _color,
+                    const Color(0xFF141110),
+                  ],
+                )
+              : null,
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            gradient: isLocked
+                ? const LinearGradient(
+                    begin: Alignment.topLeft,
+                    colors: [
+                      Color(0xFF121212),
+                      Colors.black,
+                    ],
+                  )
+                : null,
+            color: Colors.black,
+          ),
+          margin: const EdgeInsets.all(1.5),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(12, 8, 10, 8),
             child: GridTile(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -280,9 +400,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     "Gate 2",
                     style: TextStyle(
                         fontSize: 20,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         color: Colors.white),
                   ),
+                  const SizedBox(height: 2),
                   const Text(
                     "Unlocked",
                     style: TextStyle(
@@ -291,55 +412,92 @@ class _MyHomePageState extends State<MyHomePage> {
                         color: Colors.grey),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 7
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const Icon(
-                        Icons.lock,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                      const SizedBox(width: 5),
-                      Image.asset(
+                      isLocked
+                          ? Image.asset(
+                              "assets/icon/lock.png",
+                              color: Colors.white,
+                              height: 30,
+                            )
+                          : Draggable(
+                              axis: Axis.horizontal,
+                              child: Container(
+                                padding: const EdgeInsets.all(7),
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFF252525),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(100),
+                                  ),
+                                ),
+                                child: Image.asset(
+                                  "assets/icon/lock.png",
+                                  color: Colors.white,
+                                  height: 30,
+                                ),
+                              ),
+                              feedback: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF252525).withAlpha(150),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(100),
+                                  ),
+                                ),
+                              ),
+                            ),
+                      const SizedBox(width: 6),
+                      isLocked ? Image.asset(
                         "assets/icon/swipe.png",
                         height: 30,
                         width: 30,
-                      ),
-                      const SizedBox(width: 5),
-                      Draggable(
-                        axis: Axis.horizontal,
-                        maxSimultaneousDrags: 3,
-                        rootOverlay: false,
-                        child: Container(
-                          padding: const EdgeInsets.all(5),
-                          decoration: const BoxDecoration(
-                            color: Colors.white12,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(100),
-                            ),
-                          ),
-                          child: Icon(
-                            Icons.lock_open,
-                            color: _color,
-                            size: 30,
-                          ),
-                        ),
-                        feedback: Container(
-                          decoration: const BoxDecoration(
-                            color: Colors.white12,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(100),
-                            ),
-                          ),
-                          child: const Icon(
-                            Icons.lock_open,
-                            color: Colors.transparent,
-                            size: 40,
-                          ),
+                      ) :
+                      RotatedBox(
+                        quarterTurns: 2,
+                        child: Image.asset(
+                          "assets/icon/swipe.png",
+                          height: 30,
+                          width: 30,
                         ),
                       ),
+                      const SizedBox(width: 6),
+                      isLocked
+                          ? Draggable(
+                              axis: Axis.horizontal,
+                              child: Container(
+                                padding: const EdgeInsets.all(7),
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFF252525),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(100),
+                                  ),
+                                ),
+                                child: Image.asset(
+                                  "assets/icon/unlock.png",
+                                  color: _color,
+                                  height: 30,
+                                ),
+                              ),
+                              feedback: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF252525).withAlpha(150),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(100),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Image.asset(
+                              "assets/icon/unlock.png",
+                              color: Colors.white,
+                              height: 30,
+                            ),
                     ],
                   ),
                 ],
@@ -351,7 +509,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _widget(String title) {
+  Widget _area(String title, bool isActive) {
     return Container(
       width: 105,
       height: 33,
@@ -372,16 +530,33 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
 }
 
-class RPSCustomPainter extends CustomPainter {
+class MyCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint0 = Paint()
       ..color = const Color.fromARGB(128, 255, 255, 255)
       ..style = PaintingStyle.fill
-      ..maskFilter = const MaskFilter.blur(BlurStyle.inner, 5)
-      ..strokeWidth = 1.5;
+      ..strokeWidth = 2.0
+      ..shader = const LinearGradient(
+        colors: [
+          Colors.white,
+          Colors.black
+        ],
+      ).createShader(Rect.fromLTWH(0, 0, size.width, size.height))
+      // ..strokeCap = StrokeCap.round
+      // ..isAntiAlias = true
+      // ..blendMode = BlendMode.srcATop
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 2.0)
+      ..filterQuality = FilterQuality.low
+      ..colorFilter = ColorFilter.mode(
+        Colors.black.withOpacity(0.6),
+        BlendMode.srcATop,
+      );
+    // ..imageFilter = ImageFilter.blur(sigmaX: 3, sigmaY: 3);
+    // ..blendMode = BlendMode.xor;
 
     Path path0 = Path();
     path0.moveTo(size.width * 0.1500300, size.height * 0.1238500);
