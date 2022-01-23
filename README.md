@@ -1,16 +1,5 @@
-# home_automation_ui
+# Home Automation UI Flutter
 
-A new Flutter project.
+https://user-images.githubusercontent.com/63658662/150672089-d8d79831-fadd-4749-a47a-201318a4a220.mp4
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="https://user-images.githubusercontent.com/63658662/150672008-526d8397-72c0-48e6-a751-9b7025c31a3d.jpg" width="300">
