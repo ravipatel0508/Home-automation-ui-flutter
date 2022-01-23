@@ -330,7 +330,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     crossAxisCount: 2,
                     mainAxisSpacing: 25.0,
                     crossAxisSpacing: 17.0,
-                    childAspectRatio: 180 / 113,
+                    childAspectRatio: 180 / 115,
                   ),
                   delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
@@ -435,7 +435,7 @@ class _MyHomePageState extends State<MyHomePage> {
         });
       },
       child: SizedBox(
-        height: 113,
+        height: 115,
         width: 180,
         child: DecoratedBox(
           decoration: BoxDecoration(
@@ -445,7 +445,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ? RadialGradient(
                     center: Alignment.topLeft,
                     radius: 1.3,
-                    transform: const GradientRotation(0.6),
+                    transform: const GradientRotation(0.5),
                     colors: [
                       _primaryColor,
                       const Color(0xFF141110),
@@ -555,7 +555,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Image.asset(
                     footerImage,
                     height: 18,
-                    color: Colors.white,
+                    color: _electicApplianceTitle[index] == "Studio Lamp" ? const Color(0xFFA61D98) : Colors.white,
                   ),
                 ),
               ),
@@ -568,7 +568,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _lockGridTile(String title, bool isLocked, int index) {
     return SizedBox(
-      height: 113,
+      height: 115,
       width: 180,
       child: DecoratedBox(
         decoration: BoxDecoration(
@@ -785,12 +785,12 @@ class MyCustomPainter extends CustomPainter {
       // ..shader = const LinearGradient(
       //   colors: [Colors.white38, Colors.white10],
       // ).createShader(Rect.fromLTWH(0, 0, size.width, size.height))
-      ..imageFilter = ImageFilter.blur(sigmaX: 1, sigmaY: 1)
+      // ..imageFilter = ImageFilter.blur(sigmaX: 3, sigmaY: 3)
       ..strokeCap = StrokeCap.round
-      ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 2.0)
-      ..filterQuality = FilterQuality.low
+      ..maskFilter = const MaskFilter.blur(BlurStyle.inner, 7.0)
+      ..filterQuality = FilterQuality.high
       ..colorFilter = ColorFilter.mode(
-        Colors.black.withOpacity(0.6),
+        Colors.black.withOpacity(0.35),
         BlendMode.srcATop,
       );
 

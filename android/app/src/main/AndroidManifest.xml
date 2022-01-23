@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.home_automation_ui">
    <application
-        android:label="home_automation_ui"
+        android:label="Home Automation UI"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
