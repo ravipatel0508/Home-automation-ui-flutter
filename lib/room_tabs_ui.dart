@@ -1,5 +1,3 @@
-
-
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -7,13 +5,11 @@ import 'package:home_automation_ui/constants.dart';
 
 class RoomTabs extends StatefulWidget {
   final String title;
-   bool isActive;
   final int index;
 
-   RoomTabs({
+  const RoomTabs({
     Key? key,
     required this.title,
-    required this.isActive,
     required this.index,
   }) : super(key: key);
 
@@ -22,17 +18,28 @@ class RoomTabs extends StatefulWidget {
 }
 
 class _RoomTabsState extends State<RoomTabs> {
-  MyConst cons = MyConst();
+  List<bool> roomState = [
+    true,
+    false,
+    false,
+    false,
+    false,
+  ];
+  var previousIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        log("index: ${widget.index}");
+        log("previousIndex: $previousIndex");
         setState(() {
-          cons.roomState[cons.previousIndex] = false;
-          cons.roomState[widget.index] = !cons.roomState[widget.index];
-          cons.previousIndex = widget.index;
+
+          // roomState[previousIndex] = false;
+          roomState[widget.index] = !roomState[widget.index];
+          // previousIndex = widget.index;
         });
-        log(cons.roomState[widget.index].toString());
+        log("previousIndex: $previousIndex");
       },
       child: Container(
         width: 105,
@@ -41,7 +48,7 @@ class _RoomTabsState extends State<RoomTabs> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           border: Border.all(
-            color: widget.isActive ? cons.primaryColor : cons.secondaryColor,
+            color: roomState[widget.index] ? MyConst().primaryColor : MyConst().secondaryColor,
             width: 1,
           ),
           borderRadius: BorderRadius.circular(30),

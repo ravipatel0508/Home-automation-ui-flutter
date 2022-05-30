@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:home_automation_ui/constants.dart';
 
+// ignore: must_be_immutable
 class ElectricApplianceGridTile extends StatefulWidget {
   final String image;
   final String titleText;
@@ -10,10 +9,10 @@ class ElectricApplianceGridTile extends StatefulWidget {
   final String subtitle;
   final String afterSubtitleText;
   final String footerImage;
-  final bool isLocked;
+  bool isLocked;
   final int index;
 
-  const ElectricApplianceGridTile({
+  ElectricApplianceGridTile({
     Key? key,
     required this.image,
     required this.titleText,
@@ -26,25 +25,19 @@ class ElectricApplianceGridTile extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ElectricApplianceGridTile> createState() =>
-      _ElectricApplianceGridTileState();
+  State<ElectricApplianceGridTile> createState() => _ElectricApplianceGridTileState();
 }
 
 class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
   MyConst cons = MyConst();
-  Color primaryColor = const Color(0xFFd8AA38);
-
-  Color secondaryColor = const Color(0xFF787878);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         setState(() {
-          cons.elecricApplianceState[widget.index] =
-              !cons.elecricApplianceState[widget.index];
+          widget.isLocked = !widget.isLocked;
         });
-        log(cons.elecricApplianceState[widget.index].toString());
       },
       child: SizedBox(
         height: 115,
@@ -92,8 +85,7 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
                         height: 8,
                         width: 8,
                         decoration: BoxDecoration(
-                          color:
-                              widget.isLocked ? primaryColor : secondaryColor,
+                          color: widget.isLocked ? cons.primaryColor : cons.secondaryColor,
                           borderRadius: const BorderRadius.all(
                             Radius.circular(100),
                           ),
@@ -107,10 +99,7 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
                       padding: const EdgeInsets.only(top: 7),
                       child: Text(
                         widget.isLocked ? "ON" : "OFF",
-                        style: TextStyle(
-                            color:
-                                widget.isLocked ? primaryColor : secondaryColor,
-                            fontSize: 11),
+                        style: TextStyle(color: widget.isLocked ? cons.primaryColor : cons.secondaryColor, fontSize: 11),
                       ),
                     )
                   ],
@@ -129,27 +118,18 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
                       children: [
                         Text(
                           widget.titleText,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16),
+                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
                         ),
                         Text(
                           widget.afterTitleText,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16),
+                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
                         ),
                       ],
                     ),
                     const SizedBox(height: 5),
                     Text(
                       widget.subtitle,
-                      style: const TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 10),
+                      style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.w400, fontSize: 10),
                     ),
                     const SizedBox(
                       height: 1,
@@ -169,10 +149,7 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
                   child: Image.asset(
                     widget.footerImage,
                     height: 18,
-                    color: cons.electicApplianceTitle[widget.index] ==
-                            "Studio Lamp"
-                        ? const Color(0xFFA61D98)
-                        : Colors.white,
+                    color: cons.electicApplianceTitle[widget.index] == "Studio Lamp" ? const Color(0xFFA61D98) : Colors.white,
                   ),
                 ),
               ),
@@ -185,18 +162,16 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
 }
 
 class LockGridTile extends StatefulWidget {
-
-  final String title ;
-   final bool isLocked;
-    final int index;
-  
+  final String title;
+  final bool isLocked;
+  final int index;
 
   const LockGridTile({
-     Key? key,
-     required this.title,
-     required this.isLocked,
-     required this.index,
-   }) : super(key: key);
+    Key? key,
+    required this.title,
+    required this.isLocked,
+    required this.index,
+  }) : super(key: key);
 
   @override
   State<LockGridTile> createState() => _LockGridTileState();
@@ -248,18 +223,12 @@ class _LockGridTileState extends State<LockGridTile> {
                 children: [
                   Text(
                     widget.title,
-                    style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
                   ),
                   const SizedBox(height: 3),
                   const Text(
                     "Unlocked",
-                    style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.grey),
+                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500, color: Colors.grey),
                   ),
                   const SizedBox(height: 7),
                   Row(
@@ -271,8 +240,7 @@ class _LockGridTileState extends State<LockGridTile> {
                               hitTestBehavior: HitTestBehavior.translucent,
                               onDragEnd: (details) {
                                 setState(() {
-                                  cons.elecricApplianceState[widget.index] =
-                                      !cons.elecricApplianceState[widget.index];
+                                  cons.elecricApplianceState[widget.index] = !cons.elecricApplianceState[widget.index];
                                 });
                               },
                               child: Container(
@@ -331,8 +299,7 @@ class _LockGridTileState extends State<LockGridTile> {
                           : Draggable(
                               onDragEnd: (details) {
                                 setState(() {
-                                  cons.elecricApplianceState[widget.index] =
-                                      !cons.elecricApplianceState[widget.index];
+                                  cons.elecricApplianceState[widget.index] = !cons.elecricApplianceState[widget.index];
                                 });
                               },
                               axis: Axis.horizontal,

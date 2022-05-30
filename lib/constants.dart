@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 
+class MyConst {
+  final Color primaryColor = const Color(0xFFd8AA38);
 
-
-class MyConst{
-
-  
-   final Color primaryColor = const Color(0xFFd8AA38);
-
-   final Color secondaryColor = const Color(0xFF787878);
+  final Color secondaryColor = const Color(0xFF787878);
 
   final List<String> room = [
     "Living Room",
@@ -17,15 +13,15 @@ class MyConst{
     "Dining Room",
   ];
 
-  final List<bool> roomState = [
-    true,
-    false,
-    false,
-    false,
-    false,
-  ];
-  //previousIndex is for the previous state of the room
-  var previousIndex = 0;
+  //  List<bool> roomState = [
+  //   true,
+  //   false,
+  //   false,
+  //   false,
+  //   false,
+  // ];
+  // //previousIndex is for the previous state of the room
+  // var previousIndex = 0;
 
   final List<String> electicApplianceImages = [
     "",
@@ -129,7 +125,7 @@ class MyConst{
     "assets/icon/wall-clock.png",
   ];
 
-  final List<bool> elecricApplianceState = [
+   List<bool> elecricApplianceState = [
     false,
     true,
     true,
@@ -145,8 +141,4 @@ class MyConst{
     false,
     false,
   ];
-
 }
-
-
-
