@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:home_automation_ui/constants.dart';
 
-// ignore: must_be_immutable
 class ElectricApplianceGridTile extends StatefulWidget {
   final String image;
   final String titleText;

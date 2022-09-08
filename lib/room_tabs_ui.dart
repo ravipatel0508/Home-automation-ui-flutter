@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:home_automation_ui/constants.dart';
 
@@ -31,15 +29,11 @@ class _RoomTabsState extends State<RoomTabs> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        log("index: ${widget.index}");
-        log("previousIndex: $previousIndex");
         setState(() {
-
           // roomState[previousIndex] = false;
           roomState[widget.index] = !roomState[widget.index];
           // previousIndex = widget.index;
         });
-        log("previousIndex: $previousIndex");
       },
       child: Container(
         width: 105,

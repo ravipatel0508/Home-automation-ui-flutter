@@ -13,16 +13,6 @@ class MyConst {
     "Dining Room",
   ];
 
-  //  List<bool> roomState = [
-  //   true,
-  //   false,
-  //   false,
-  //   false,
-  //   false,
-  // ];
-  // //previousIndex is for the previous state of the room
-  // var previousIndex = 0;
-
   final List<String> electicApplianceImages = [
     "",
     "",
@@ -125,7 +115,7 @@ class MyConst {
     "assets/icon/wall-clock.png",
   ];
 
-   List<bool> elecricApplianceState = [
+  List<bool> elecricApplianceState = [
     false,
     true,
     true,

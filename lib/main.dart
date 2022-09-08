@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:home_automation_ui/grid_tile_ui.dart';
 import 'package:home_automation_ui/room_tabs_ui.dart';
 
@@ -16,11 +18,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Home Automation UI',
       theme: ThemeData(
         textTheme: GoogleFonts.kumbhSansTextTheme(),
       ),
       home: const MyHomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -33,7 +36,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  MyConst cons = MyConst();
+  List<bool> isLocked = [
+    true,
+    false,
+  ];
+  MyConst consts = MyConst();
 
   @override
   Widget build(BuildContext context) {
@@ -152,9 +159,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         padding: const EdgeInsets.only(left: 20),
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
-                        itemCount: cons.room.length,
+                        itemCount: consts.room.length,
                         itemBuilder: (context, index) => RoomTabs(
-                          title: cons.room[index],
+                          title: consts.room[index],
                           index: index,
                         ),
                       ),
@@ -175,20 +182,23 @@ class _MyHomePageState extends State<MyHomePage> {
                   delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
                       return index <= 1
-                          ? LockGridTile(
-                              title: cons.electicApplianceTitle[index], isLocked: cons.elecricApplianceState[index], index: index)
+                          ? lockGridTile(
+                              consts.elecricApplianceState[index],
+                              index,
+                              consts.electicApplianceTitle[index],
+                            )
                           : ElectricApplianceGridTile(
-                              image: cons.electicApplianceImages[index],
-                              titleText: cons.electicApplianceTitle[index],
-                              afterTitleText: cons.afterTitleText[index],
-                              subtitle: cons.afterSubtitleText[index],
-                              afterSubtitleText: cons.electricApplianceSubtitle[index],
-                              footerImage: cons.gridFooter[index],
-                              isLocked: cons.elecricApplianceState[index],
+                              image: consts.electicApplianceImages[index],
+                              titleText: consts.electicApplianceTitle[index],
+                              afterTitleText: consts.afterTitleText[index],
+                              subtitle: consts.afterSubtitleText[index],
+                              afterSubtitleText: consts.electricApplianceSubtitle[index],
+                              footerImage: consts.gridFooter[index],
+                              isLocked: consts.elecricApplianceState[index],
                               index: index,
                             );
                     },
-                    childCount: cons.electicApplianceImages.length,
+                    childCount: consts.electicApplianceImages.length,
                   ),
                 ),
               ),
@@ -197,25 +207,25 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Positioned(
             bottom: 10,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  alignment: Alignment.center,
-                  child: CustomPaint(
-                    size: Size(MediaQuery.of(context).size.width, 100),
-                    painter: MyCustomPainter(),
+            child: ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  width: MediaQuery.of(context).size.width - 40,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: Colors.white10.withOpacity(0.1),
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
                   ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width - 100,
                   child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Icon(
                         Icons.home_outlined,
-                        color: cons.primaryColor,
+                        color: consts.primaryColor,
                         size: 30,
                       ),
                       Image.asset(
@@ -223,24 +233,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         color: Colors.white,
                         height: 25,
                       ),
-                      Stack(
-                        children: [
-                          Image.asset(
-                            "assets/icon/bell.png",
-                            color: Colors.white,
-                            height: 25,
-                          ),
-                          Container(
-                            height: 10,
-                            width: 10,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: cons.primaryColor,
-                            ),
-                            child: const Text("2", style: TextStyle(fontSize: 7, fontWeight: FontWeight.w800)),
-                          ),
-                        ],
+                      Image.asset(
+                        "assets/icon/bell.png",
+                        color: Colors.white,
+                        height: 25,
                       ),
                       Image.asset(
                         "assets/icon/settings.png",
@@ -249,11 +245,170 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ],
                   ),
-                )
-              ],
+                ),
+              ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget lockGridTile(bool isLocked, int index, String title) {
+    return SizedBox(
+      height: 115,
+      width: 180,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: isLocked ? const Color(0xFF252525) : null,
+          gradient: isLocked
+              ? null
+              : RadialGradient(
+                  center: Alignment.topLeft,
+                  radius: 1.3,
+                  transform: const GradientRotation(0.6),
+                  colors: [
+                    consts.primaryColor,
+                    const Color(0xFF141110),
+                  ],
+                ),
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            gradient: isLocked
+                ? null
+                : const LinearGradient(
+                    begin: Alignment.topLeft,
+                    colors: [
+                      Color(0xFF121212),
+                      Colors.black,
+                    ],
+                  ),
+            color: Colors.black,
+          ),
+          margin: const EdgeInsets.all(1.5),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(12, 12, 10, 0),
+            child: GridTile(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
+                  ),
+                  const SizedBox(height: 3),
+                  const Text(
+                    "Unlocked",
+                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500, color: Colors.grey),
+                  ),
+                  const SizedBox(height: 7),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      isLocked
+                          ? Draggable(
+                              axis: Axis.horizontal,
+                              hitTestBehavior: HitTestBehavior.translucent,
+                              onDragEnd: (details) {
+                                setState(() {
+                                  consts.elecricApplianceState[index] = !consts.elecricApplianceState[index];
+                                });
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(7),
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFF252525),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(100),
+                                  ),
+                                ),
+                                child: Image.asset(
+                                  "assets/icon/lock.png",
+                                  color: Colors.white,
+                                  height: 30,
+                                ),
+                              ),
+                              affinity: Axis.horizontal,
+                              feedback: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF252525).withAlpha(150),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(100),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Image.asset(
+                              "assets/icon/lock.png",
+                              color: Colors.white,
+                              height: 30,
+                            ),
+                      const SizedBox(width: 6),
+                      isLocked
+                          ? RotatedBox(
+                              quarterTurns: 2,
+                              child: Image.asset(
+                                "assets/icon/swipe.png",
+                                height: 30,
+                                width: 30,
+                              ),
+                            )
+                          : Image.asset(
+                              "assets/icon/swipe.png",
+                              height: 30,
+                              width: 30,
+                            ),
+                      const SizedBox(width: 6),
+                      isLocked
+                          ? Image.asset(
+                              "assets/icon/unlock.png",
+                              color: Colors.white,
+                              height: 30,
+                            )
+                          : Draggable(
+                              onDragEnd: (details) {
+                                setState(() {
+                                  consts.elecricApplianceState[index] = !consts.elecricApplianceState[index];
+                                });
+                              },
+                              axis: Axis.horizontal,
+                              child: Container(
+                                padding: const EdgeInsets.all(7),
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFF252525),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(100),
+                                  ),
+                                ),
+                                child: Image.asset(
+                                  "assets/icon/unlock.png",
+                                  color: consts.primaryColor,
+                                  height: 30,
+                                ),
+                              ),
+                              feedback: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF252525).withAlpha(150),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(100),
+                                  ),
+                                ),
+                              ),
+                            )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -264,41 +419,5 @@ class CustomScroll extends ScrollBehavior {
   @override
   Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection) {
     return child;
-  }
-}
-
-class MyCustomPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint0 = Paint()
-      ..color = Colors.white38
-      ..style = PaintingStyle.fill
-      ..strokeWidth = 2.0
-      ..strokeCap = StrokeCap.round
-      ..maskFilter = const MaskFilter.blur(BlurStyle.inner, 7.0)
-      ..filterQuality = FilterQuality.high
-      ..colorFilter = ColorFilter.mode(
-        Colors.black.withOpacity(0.35),
-        BlendMode.srcATop,
-      );
-
-    Path path0 = Path();
-    path0.moveTo(size.width * 0.1500300, size.height * 0.1238500);
-    path0.cubicTo(size.width * 0.0037200, size.height * 0.1023500, size.width * 0.0522600, size.height * 0.7552500, size.width * 0.1500500,
-        size.height * 0.8761750);
-    path0.cubicTo(size.width * 0.2767600, size.height * 0.8761750, size.width * 0.7234100, size.height * 0.8735500, size.width * 0.8501100,
-        size.height * 0.8735500);
-    path0.cubicTo(size.width * 0.9464300, size.height * 0.7575750, size.width * 0.9946900, size.height * 0.0944750, size.width * 0.8496900,
-        size.height * 0.1268750);
-    path0.cubicTo(size.width * 0.7230200, size.height * 0.1268750, size.width * 0.5303400, size.height * 0.1263500, size.width * 0.1500300,
-        size.height * 0.1238500);
-    path0.close();
-
-    canvas.drawPath(path0, paint0);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
   }
 }
