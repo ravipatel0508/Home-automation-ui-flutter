@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:home_automation_ui/grid_tile_ui.dart';
 import 'package:home_automation_ui/room_tabs_ui.dart';
 
@@ -36,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Stack(
         children: [
           Container(
@@ -201,21 +204,28 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Positioned(
             bottom: 10,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  alignment: Alignment.center,
-                  child: CustomPaint(
-                    size: Size(MediaQuery.of(context).size.width, 100),
-                    painter: MyCustomPainter(),
+            child: ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                child: Container(
+                  width: MediaQuery.of(context).size.width - 40,
+                  height: 70,
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  decoration: const BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    border: Border.fromBorderSide(
+                      BorderSide(
+                        color: Colors.white,
+                        width: 2,
+                      ),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width - 100,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const Icon(
                         Icons.home_outlined,
@@ -255,8 +265,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ],
                   ),
-                )
-              ],
+                ),
+              ),
             ),
           ),
         ],
