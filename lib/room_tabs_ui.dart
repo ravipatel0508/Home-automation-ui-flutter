@@ -31,14 +31,11 @@ class _RoomTabsState extends State<RoomTabs> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        log("index: ${widget.index}");
-        log("previousIndex: $previousIndex");
         setState(() {
           // roomState[previousIndex] = false;
           roomState[widget.index] = !roomState[widget.index];
           // previousIndex = widget.index;
         });
-        log("previousIndex: $previousIndex");
       },
       child: Container(
         width: 105,
@@ -48,14 +45,14 @@ class _RoomTabsState extends State<RoomTabs> {
         decoration: BoxDecoration(
           border: Border.all(
             color: roomState[widget.index] ? kPrimaryColor : kSecondaryColor,
-            width: 1,
+            width: 2,
           ),
           borderRadius: BorderRadius.circular(30),
         ),
         child: Text(
           widget.title,
-          style: const TextStyle(
-            color: Colors.white,
+          style: TextStyle(
+            color: kTextColor,
             fontSize: 13,
           ),
         ),

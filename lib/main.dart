@@ -38,18 +38,15 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: isDark ? Colors.black : Colors.white,
       body: Stack(
         children: [
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.center,
-                colors: [
-                  Color(0xFF252525),
-                  Colors.black,
-                ],
+                colors: backgroundGradient,
               ),
             ),
           ),
@@ -72,10 +69,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                     ),
-                    const Text(
+                    Text(
                       "tempest",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: kTextColor,
                         fontSize: 30,
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.italic,
@@ -88,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding: const EdgeInsets.all(5.0),
                     child: Image.asset(
                       "assets/icon/add-icon.png",
+                      color: imageColor,
                     ),
                   ),
                 ],
@@ -106,12 +104,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         children: [
-                          const Row(
+                          Row(
                             children: [
                               Text(
                                 "Hello",
                                 style: TextStyle(
-                                  color: Colors.white54,
+                                  color:
+                                      isDark ? Colors.white54 : Colors.black54,
                                   fontSize: 25,
                                 ),
                               ),
@@ -121,10 +120,10 @@ class _MyHomePageState extends State<MyHomePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              const Text(
+                              Text(
                                 "Moritz",
                                 style: TextStyle(
-                                    color: Colors.white,
+                                    color: kTextColor,
                                     fontSize: 35,
                                     fontWeight: FontWeight.w800),
                               ),
@@ -206,19 +205,19 @@ class _MyHomePageState extends State<MyHomePage> {
             bottom: 10,
             child: ClipRect(
               child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                 child: Container(
                   width: MediaQuery.of(context).size.width - 40,
                   height: 70,
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: Colors.transparent,
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
                     border: Border.fromBorderSide(
                       BorderSide(
-                        color: Colors.white,
+                        color: imageColor,
                         width: 2,
                       ),
                     ),
@@ -227,40 +226,45 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.home_outlined,
                         color: kPrimaryColor,
                         size: 30,
                       ),
                       Image.asset(
                         "assets/icon/four-dots.png",
-                        color: Colors.white,
+                        color: imageColor,
                         height: 25,
                       ),
                       Stack(
                         children: [
                           Image.asset(
                             "assets/icon/bell.png",
-                            color: Colors.white,
+                            color: imageColor,
                             height: 25,
                           ),
                           Container(
-                            height: 10,
-                            width: 10,
+                            height: 12,
+                            width: 12,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
                               color: kPrimaryColor,
                             ),
-                            child: const Text("2",
-                                style: TextStyle(
-                                    fontSize: 7, fontWeight: FontWeight.w800)),
+                            child: const Text(
+                              "2",
+                              style: TextStyle(
+                                fontSize: 9,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
                           ),
                         ],
                       ),
                       Image.asset(
                         "assets/icon/settings.png",
-                        color: Colors.white,
+                        color: Colors.blueGrey,
                         height: 25,
                       ),
                     ],

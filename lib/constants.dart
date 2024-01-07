@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
 
-const Color kPrimaryColor = Color(0xFFd8AA38);
+bool isDark = false;
+Color kPrimaryColor = isDark ? const Color(0xFFd8AA38) : Colors.blue;
+Color kSecondaryColor = isDark ? const Color(0xFF787878) : Colors.grey[300]!;
 
-const Color kSecondaryColor = Color(0xFF787878);
+List<Color> backgroundGradient = isDark
+    ? [const Color(0xFF252525), Colors.black]
+    : [Colors.blue[100]!, Colors.white];
+List<Color> gridTileGradient = isDark
+    ? [const Color(0xFF121212), Colors.black]
+    : [Colors.blueGrey[50]!, Colors.white];
+List<Color> gridBorderGradient = isDark
+    ? [kPrimaryColor, const Color(0xFF141110)]
+    : [kPrimaryColor, Colors.blueGrey];
+
+Color kTextColor = isDark ? Colors.white : Colors.black;
+Color imageColor = isDark ? Colors.white : Colors.blueGrey;
+Color gridTileBGColor = isDark ? Colors.black : Colors.white;
+Color gridTileBorderColor =
+    isDark ? const Color(0xFF252525) : Colors.grey[300]!;
+Color onOffStatusColor = isDark ? kSecondaryColor : Colors.blueGrey;
 
 const List<String> kRoomName = [
   "Living Room",

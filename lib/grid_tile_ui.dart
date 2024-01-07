@@ -44,16 +44,13 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: widget.isLocked ? null : const Color(0xFF252525),
+            color: widget.isLocked ? null : gridTileBorderColor,
             gradient: widget.isLocked
-                ? const RadialGradient(
+                ? RadialGradient(
                     center: Alignment.topLeft,
                     radius: 1.3,
-                    transform: GradientRotation(0.5),
-                    colors: [
-                      kPrimaryColor,
-                      Color(0xFF141110),
-                    ],
+                    transform: isDark ? const GradientRotation(0.5) : null,
+                    colors: [kPrimaryColor, Colors.blueGrey[200]!],
                   )
                 : null,
           ),
@@ -61,15 +58,12 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               gradient: widget.isLocked
-                  ? const LinearGradient(
+                  ? LinearGradient(
                       begin: Alignment.topLeft,
-                      colors: [
-                        Color(0xFF121212),
-                        Colors.black,
-                      ],
+                      colors: gridTileGradient,
                     )
                   : null,
-              color: Colors.black,
+              color: gridTileBGColor,
             ),
             margin: const EdgeInsets.all(1.5),
             child: Padding(
@@ -84,17 +78,15 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
                         height: 8,
                         width: 8,
                         decoration: BoxDecoration(
-                          color:
-                              widget.isLocked ? kPrimaryColor : kSecondaryColor,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(100),
-                          ),
+                          color: widget.isLocked
+                              ? kPrimaryColor
+                              : onOffStatusColor,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(100)),
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 3,
-                    ),
+                    const SizedBox(width: 3),
                     Padding(
                       padding: const EdgeInsets.only(top: 7),
                       child: Text(
@@ -102,7 +94,7 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
                         style: TextStyle(
                             color: widget.isLocked
                                 ? kPrimaryColor
-                                : kSecondaryColor,
+                                : onOffStatusColor,
                             fontSize: 11),
                       ),
                     )
@@ -121,28 +113,26 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset(
-                      widget.image,
-                      height: 27,
-                      color: Colors.white,
-                    ),
+                    Image.asset(widget.image, height: 27, color: imageColor),
                     const SizedBox(height: 7),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           widget.titleText,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16),
+                          style: TextStyle(
+                            color: kTextColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                          ),
                         ),
                         Text(
                           widget.afterTitleText,
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16),
+                          style: TextStyle(
+                            color: kTextColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                          ),
                         ),
                       ],
                     ),
@@ -150,17 +140,16 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
                     Text(
                       widget.subtitle,
                       style: const TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 10),
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 10,
+                      ),
                     ),
-                    const SizedBox(
-                      height: 1,
-                    ),
+                    const SizedBox(height: 1),
                     Text(
                       widget.afterSubtitleText,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: kTextColor,
                         fontWeight: FontWeight.w400,
                         fontSize: 12,
                       ),
@@ -204,14 +193,11 @@ class _LockGridTileState extends State<LockGridTile> {
           color: widget.isLocked ? const Color(0xFF252525) : null,
           gradient: widget.isLocked
               ? null
-              : const RadialGradient(
+              : RadialGradient(
                   center: Alignment.topLeft,
                   radius: 1.3,
-                  transform: GradientRotation(0.6),
-                  colors: [
-                    kPrimaryColor,
-                    Color(0xFF141110),
-                  ],
+                  transform: isDark ? const GradientRotation(0.6) : null,
+                  colors: gridBorderGradient,
                 ),
         ),
         child: Container(
@@ -219,14 +205,11 @@ class _LockGridTileState extends State<LockGridTile> {
             borderRadius: BorderRadius.circular(12),
             gradient: widget.isLocked
                 ? null
-                : const LinearGradient(
+                : LinearGradient(
                     begin: Alignment.topLeft,
-                    colors: [
-                      Color(0xFF121212),
-                      Colors.black,
-                    ],
+                    colors: backgroundGradient,
                   ),
-            color: Colors.black,
+            color: gridTileBGColor,
           ),
           margin: const EdgeInsets.all(1.5),
           child: Padding(
@@ -237,18 +220,20 @@ class _LockGridTileState extends State<LockGridTile> {
                 children: [
                   Text(
                     widget.title,
-                    style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: kTextColor,
+                    ),
                   ),
                   const SizedBox(height: 3),
                   const Text(
                     "Unlocked",
                     style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.grey),
+                      fontSize: 10,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey,
+                    ),
                   ),
                   const SizedBox(height: 7),
                   Row(
@@ -285,14 +270,15 @@ class _LockGridTileState extends State<LockGridTile> {
                                 ),
                                 child: Image.asset(
                                   "assets/icon/lock.png",
-                                  color: Colors.white,
+                                  color: imageColor,
                                   height: 30,
                                 ),
                               ),
                             )
                           : Image.asset(
                               "assets/icon/lock.png",
-                              color: Colors.white,
+                              color:
+                                  isDark ? Colors.white : Colors.blueGrey[200],
                               height: 30,
                             ),
                       const SizedBox(width: 6),
@@ -314,7 +300,7 @@ class _LockGridTileState extends State<LockGridTile> {
                       widget.isLocked
                           ? Image.asset(
                               "assets/icon/unlock.png",
-                              color: Colors.white,
+                              color: isDark ? Colors.white : kPrimaryColor,
                               height: 30,
                             )
                           : Draggable(
@@ -345,7 +331,9 @@ class _LockGridTileState extends State<LockGridTile> {
                                 ),
                                 child: Image.asset(
                                   "assets/icon/unlock.png",
-                                  color: kPrimaryColor,
+                                  color: isDark
+                                      ? kPrimaryColor
+                                      : Colors.blueGrey[200],
                                   height: 30,
                                 ),
                               ),
