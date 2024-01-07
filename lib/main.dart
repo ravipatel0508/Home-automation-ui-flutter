@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Home Automation UI',
       theme: ThemeData(
         textTheme: GoogleFonts.kumbhSansTextTheme(),
       ),
@@ -33,8 +33,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  MyConst cons = MyConst();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         height: 10,
                         width: 10,
                         decoration: BoxDecoration(
-                          color: MyConst().primaryColor,
+                          color: kPrimaryColor,
                           borderRadius: BorderRadius.circular(50),
                         ),
                       ),
@@ -105,8 +103,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         children: [
-                          Row(
-                            children: const [
+                          const Row(
+                            children: [
                               Text(
                                 "Hello",
                                 style: TextStyle(
@@ -122,14 +120,17 @@ class _MyHomePageState extends State<MyHomePage> {
                             children: [
                               const Text(
                                 "Moritz",
-                                style: TextStyle(color: Colors.white, fontSize: 35, fontWeight: FontWeight.w800),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.w800),
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Image.asset(
                                     "assets/icon/sun.png",
-                                    color: MyConst().primaryColor,
+                                    color: kPrimaryColor,
                                     height: 30,
                                   ),
                                   const Text(
@@ -152,9 +153,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         padding: const EdgeInsets.only(left: 20),
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
-                        itemCount: cons.room.length,
+                        itemCount: kRoomName.length,
                         itemBuilder: (context, index) => RoomTabs(
-                          title: cons.room[index],
+                          title: kRoomName[index],
                           index: index,
                         ),
                       ),
@@ -176,19 +177,22 @@ class _MyHomePageState extends State<MyHomePage> {
                     (BuildContext context, int index) {
                       return index <= 1
                           ? LockGridTile(
-                              title: cons.electicApplianceTitle[index], isLocked: cons.elecricApplianceState[index], index: index)
+                              title: kElecticApplianceTitle[index],
+                              isLocked: kElecricApplianceState[index],
+                              index: index)
                           : ElectricApplianceGridTile(
-                              image: cons.electicApplianceImages[index],
-                              titleText: cons.electicApplianceTitle[index],
-                              afterTitleText: cons.afterTitleText[index],
-                              subtitle: cons.afterSubtitleText[index],
-                              afterSubtitleText: cons.electricApplianceSubtitle[index],
-                              footerImage: cons.gridFooter[index],
-                              isLocked: cons.elecricApplianceState[index],
+                              image: kElecticApplianceImages[index],
+                              titleText: kElecticApplianceTitle[index],
+                              afterTitleText: kTitleTrailingText[index],
+                              subtitle: kSubtitleTrailingText[index],
+                              afterSubtitleText:
+                                  kElectricApplianceSubtitle[index],
+                              footerImage: kGridFooter[index],
+                              isLocked: kElecricApplianceState[index],
                               index: index,
                             );
                     },
-                    childCount: cons.electicApplianceImages.length,
+                    childCount: kElecticApplianceImages.length,
                   ),
                 ),
               ),
@@ -213,9 +217,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.home_outlined,
-                        color: cons.primaryColor,
+                        color: kPrimaryColor,
                         size: 30,
                       ),
                       Image.asset(
@@ -236,9 +240,11 @@ class _MyHomePageState extends State<MyHomePage> {
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
-                              color: cons.primaryColor,
+                              color: kPrimaryColor,
                             ),
-                            child: const Text("2", style: TextStyle(fontSize: 7, fontWeight: FontWeight.w800)),
+                            child: const Text("2",
+                                style: TextStyle(
+                                    fontSize: 7, fontWeight: FontWeight.w800)),
                           ),
                         ],
                       ),
@@ -261,8 +267,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
 //To remove Scroll glow effect
 class CustomScroll extends ScrollBehavior {
-  @override
-  Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection) {
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
     return child;
   }
 }
@@ -284,13 +290,33 @@ class MyCustomPainter extends CustomPainter {
 
     Path path0 = Path();
     path0.moveTo(size.width * 0.1500300, size.height * 0.1238500);
-    path0.cubicTo(size.width * 0.0037200, size.height * 0.1023500, size.width * 0.0522600, size.height * 0.7552500, size.width * 0.1500500,
+    path0.cubicTo(
+        size.width * 0.0037200,
+        size.height * 0.1023500,
+        size.width * 0.0522600,
+        size.height * 0.7552500,
+        size.width * 0.1500500,
         size.height * 0.8761750);
-    path0.cubicTo(size.width * 0.2767600, size.height * 0.8761750, size.width * 0.7234100, size.height * 0.8735500, size.width * 0.8501100,
+    path0.cubicTo(
+        size.width * 0.2767600,
+        size.height * 0.8761750,
+        size.width * 0.7234100,
+        size.height * 0.8735500,
+        size.width * 0.8501100,
         size.height * 0.8735500);
-    path0.cubicTo(size.width * 0.9464300, size.height * 0.7575750, size.width * 0.9946900, size.height * 0.0944750, size.width * 0.8496900,
+    path0.cubicTo(
+        size.width * 0.9464300,
+        size.height * 0.7575750,
+        size.width * 0.9946900,
+        size.height * 0.0944750,
+        size.width * 0.8496900,
         size.height * 0.1268750);
-    path0.cubicTo(size.width * 0.7230200, size.height * 0.1268750, size.width * 0.5303400, size.height * 0.1263500, size.width * 0.1500300,
+    path0.cubicTo(
+        size.width * 0.7230200,
+        size.height * 0.1268750,
+        size.width * 0.5303400,
+        size.height * 0.1263500,
+        size.width * 0.1500300,
         size.height * 0.1238500);
     path0.close();
 

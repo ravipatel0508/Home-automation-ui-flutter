@@ -25,12 +25,11 @@ class ElectricApplianceGridTile extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ElectricApplianceGridTile> createState() => _ElectricApplianceGridTileState();
+  State<ElectricApplianceGridTile> createState() =>
+      _ElectricApplianceGridTileState();
 }
 
 class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
-  MyConst cons = MyConst();
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -47,13 +46,13 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
             borderRadius: BorderRadius.circular(12),
             color: widget.isLocked ? null : const Color(0xFF252525),
             gradient: widget.isLocked
-                ? RadialGradient(
+                ? const RadialGradient(
                     center: Alignment.topLeft,
                     radius: 1.3,
-                    transform: const GradientRotation(0.5),
+                    transform: GradientRotation(0.5),
                     colors: [
-                      cons.primaryColor,
-                      const Color(0xFF141110),
+                      kPrimaryColor,
+                      Color(0xFF141110),
                     ],
                   )
                 : null,
@@ -85,7 +84,8 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
                         height: 8,
                         width: 8,
                         decoration: BoxDecoration(
-                          color: widget.isLocked ? cons.primaryColor : cons.secondaryColor,
+                          color:
+                              widget.isLocked ? kPrimaryColor : kSecondaryColor,
                           borderRadius: const BorderRadius.all(
                             Radius.circular(100),
                           ),
@@ -99,10 +99,24 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
                       padding: const EdgeInsets.only(top: 7),
                       child: Text(
                         widget.isLocked ? "ON" : "OFF",
-                        style: TextStyle(color: widget.isLocked ? cons.primaryColor : cons.secondaryColor, fontSize: 11),
+                        style: TextStyle(
+                            color: widget.isLocked
+                                ? kPrimaryColor
+                                : kSecondaryColor,
+                            fontSize: 11),
                       ),
                     )
                   ],
+                ),
+                footer: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Image.asset(
+                    widget.footerImage,
+                    height: 18,
+                    color: kElecticApplianceTitle[widget.index] == "Studio Lamp"
+                        ? const Color(0xFFA61D98)
+                        : Colors.white,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,18 +132,27 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
                       children: [
                         Text(
                           widget.titleText,
-                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16),
                         ),
                         Text(
                           widget.afterTitleText,
-                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16),
                         ),
                       ],
                     ),
                     const SizedBox(height: 5),
                     Text(
                       widget.subtitle,
-                      style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.w400, fontSize: 10),
+                      style: const TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 10),
                     ),
                     const SizedBox(
                       height: 1,
@@ -143,14 +166,6 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
                       ),
                     ),
                   ],
-                ),
-                footer: Align(
-                  alignment: Alignment.bottomRight,
-                  child: Image.asset(
-                    widget.footerImage,
-                    height: 18,
-                    color: cons.electicApplianceTitle[widget.index] == "Studio Lamp" ? const Color(0xFFA61D98) : Colors.white,
-                  ),
                 ),
               ),
             ),
@@ -178,7 +193,6 @@ class LockGridTile extends StatefulWidget {
 }
 
 class _LockGridTileState extends State<LockGridTile> {
-  MyConst cons = MyConst();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -190,13 +204,13 @@ class _LockGridTileState extends State<LockGridTile> {
           color: widget.isLocked ? const Color(0xFF252525) : null,
           gradient: widget.isLocked
               ? null
-              : RadialGradient(
+              : const RadialGradient(
                   center: Alignment.topLeft,
                   radius: 1.3,
-                  transform: const GradientRotation(0.6),
+                  transform: GradientRotation(0.6),
                   colors: [
-                    cons.primaryColor,
-                    const Color(0xFF141110),
+                    kPrimaryColor,
+                    Color(0xFF141110),
                   ],
                 ),
         ),
@@ -223,12 +237,18 @@ class _LockGridTileState extends State<LockGridTile> {
                 children: [
                   Text(
                     widget.title,
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),
+                    style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white),
                   ),
                   const SizedBox(height: 3),
                   const Text(
                     "Unlocked",
-                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500, color: Colors.grey),
+                    style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey),
                   ),
                   const SizedBox(height: 7),
                   Row(
@@ -240,9 +260,21 @@ class _LockGridTileState extends State<LockGridTile> {
                               hitTestBehavior: HitTestBehavior.translucent,
                               onDragEnd: (details) {
                                 setState(() {
-                                  cons.elecricApplianceState[widget.index] = !cons.elecricApplianceState[widget.index];
+                                  kElecricApplianceState[widget.index] =
+                                      !kElecricApplianceState[widget.index];
                                 });
                               },
+                              affinity: Axis.horizontal,
+                              feedback: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF252525).withAlpha(150),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(100),
+                                  ),
+                                ),
+                              ),
                               child: Container(
                                 padding: const EdgeInsets.all(7),
                                 decoration: const BoxDecoration(
@@ -255,17 +287,6 @@ class _LockGridTileState extends State<LockGridTile> {
                                   "assets/icon/lock.png",
                                   color: Colors.white,
                                   height: 30,
-                                ),
-                              ),
-                              affinity: Axis.horizontal,
-                              feedback: Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF252525).withAlpha(150),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(100),
-                                  ),
                                 ),
                               ),
                             )
@@ -299,10 +320,21 @@ class _LockGridTileState extends State<LockGridTile> {
                           : Draggable(
                               onDragEnd: (details) {
                                 setState(() {
-                                  cons.elecricApplianceState[widget.index] = !cons.elecricApplianceState[widget.index];
+                                  kElecricApplianceState[widget.index] =
+                                      !kElecricApplianceState[widget.index];
                                 });
                               },
                               axis: Axis.horizontal,
+                              feedback: Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF252525).withAlpha(150),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(100),
+                                  ),
+                                ),
+                              ),
                               child: Container(
                                 padding: const EdgeInsets.all(7),
                                 decoration: const BoxDecoration(
@@ -313,18 +345,8 @@ class _LockGridTileState extends State<LockGridTile> {
                                 ),
                                 child: Image.asset(
                                   "assets/icon/unlock.png",
-                                  color: cons.primaryColor,
+                                  color: kPrimaryColor,
                                   height: 30,
-                                ),
-                              ),
-                              feedback: Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF252525).withAlpha(150),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(100),
-                                  ),
                                 ),
                               ),
                             )

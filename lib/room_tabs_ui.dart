@@ -34,7 +34,6 @@ class _RoomTabsState extends State<RoomTabs> {
         log("index: ${widget.index}");
         log("previousIndex: $previousIndex");
         setState(() {
-
           // roomState[previousIndex] = false;
           roomState[widget.index] = !roomState[widget.index];
           // previousIndex = widget.index;
@@ -48,7 +47,7 @@ class _RoomTabsState extends State<RoomTabs> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           border: Border.all(
-            color: roomState[widget.index] ? MyConst().primaryColor : MyConst().secondaryColor,
+            color: roomState[widget.index] ? kPrimaryColor : kSecondaryColor,
             width: 1,
           ),
           borderRadius: BorderRadius.circular(30),
