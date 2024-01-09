@@ -253,7 +253,6 @@ class _MyHomePageState extends State<MyHomePage> {
                               "2",
                               style: TextStyle(
                                 fontSize: 9,
-                                color: Colors.white,
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
@@ -262,7 +261,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       Image.asset(
                         "assets/icon/settings.png",
-                        color: Colors.blueGrey,
+                        color: Colors.white,
                         height: 25,
                       ),
                     ],

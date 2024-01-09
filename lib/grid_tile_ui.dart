@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:home_automation_ui/constants.dart';
 
@@ -30,6 +32,23 @@ class ElectricApplianceGridTile extends StatefulWidget {
 }
 
 class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
+  List<bool> kElecricApplianceState = [
+    false,
+    true,
+    true,
+    false,
+    true,
+    true,
+    false,
+    false,
+    true,
+    false,
+    true,
+    true,
+    false,
+    false,
+  ];
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -50,7 +69,7 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
                     center: Alignment.topLeft,
                     radius: 1.3,
                     transform: const GradientRotation(0.5),
-                    colors: [kPrimaryColor, Colors.blueGrey[200]!],
+                    colors: [kPrimaryColor, const Color(0xFF141110)],
                   )
                 : null,
           ),
@@ -78,9 +97,8 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
                         height: 8,
                         width: 8,
                         decoration: BoxDecoration(
-                          color: widget.isLocked
-                              ? kPrimaryColor
-                              : onOffStatusColor,
+                          color:
+                              widget.isLocked ? kPrimaryColor : kSecondaryColor,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(100)),
                         ),
@@ -94,7 +112,7 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
                         style: TextStyle(
                             color: widget.isLocked
                                 ? kPrimaryColor
-                                : onOffStatusColor,
+                                : kSecondaryColor,
                             fontSize: 11),
                       ),
                     )
@@ -244,6 +262,7 @@ class _LockGridTileState extends State<LockGridTile> {
                               axis: Axis.horizontal,
                               hitTestBehavior: HitTestBehavior.translucent,
                               onDragEnd: (details) {
+                                log("Dragged");
                                 setState(() {
                                   kElecricApplianceState[widget.index] =
                                       !kElecricApplianceState[widget.index];
@@ -304,6 +323,7 @@ class _LockGridTileState extends State<LockGridTile> {
                             )
                           : Draggable(
                               onDragEnd: (details) {
+                                log("Dragged..");
                                 setState(() {
                                   kElecricApplianceState[widget.index] =
                                       !kElecricApplianceState[widget.index];

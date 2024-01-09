@@ -9,7 +9,6 @@ List<Color> gridBorderGradient = [kPrimaryColor, const Color(0xFF141110)];
 Color kTextColor = Colors.white;
 Color imageColor = Colors.white;
 Color gridTileBGColor = Colors.black;
-Color onOffStatusColor = kSecondaryColor;
 Color gridTileBorderColor = const Color(0xFF252525);
 
 const List<String> kRoomName = [
