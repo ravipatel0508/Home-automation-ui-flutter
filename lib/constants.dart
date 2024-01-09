@@ -1,25 +1,16 @@
 import 'package:flutter/material.dart';
 
-bool isDark = false;
-Color kPrimaryColor = isDark ? const Color(0xFFd8AA38) : Colors.blue;
-Color kSecondaryColor = isDark ? const Color(0xFF787878) : Colors.grey[300]!;
-
-List<Color> backgroundGradient = isDark
-    ? [const Color(0xFF252525), Colors.black]
-    : [Colors.blue[100]!, Colors.white];
-List<Color> gridTileGradient = isDark
-    ? [const Color(0xFF121212), Colors.black]
-    : [Colors.blueGrey[50]!, Colors.white];
-List<Color> gridBorderGradient = isDark
-    ? [kPrimaryColor, const Color(0xFF141110)]
-    : [kPrimaryColor, Colors.blueGrey];
-
-Color kTextColor = isDark ? Colors.white : Colors.black;
-Color imageColor = isDark ? Colors.white : Colors.blueGrey;
-Color gridTileBGColor = isDark ? Colors.black : Colors.white;
-Color gridTileBorderColor =
-    isDark ? const Color(0xFF252525) : Colors.grey[300]!;
-Color onOffStatusColor = isDark ? kSecondaryColor : Colors.blueGrey;
+bool isDark = true;
+Color kPrimaryColor = const Color(0xFFd8AA38);
+Color kSecondaryColor = const Color(0xFF787878);
+List<Color> backgroundGradient = [const Color(0xFF252525), Colors.black];
+List<Color> gridTileGradient = [const Color(0xFF121212), Colors.black];
+List<Color> gridBorderGradient = [kPrimaryColor, const Color(0xFF141110)];
+Color kTextColor = Colors.white;
+Color imageColor = Colors.white;
+Color gridTileBGColor = Colors.black;
+Color onOffStatusColor = kSecondaryColor;
+Color gridTileBorderColor = const Color(0xFF252525);
 
 const List<String> kRoomName = [
   "Living Room",
