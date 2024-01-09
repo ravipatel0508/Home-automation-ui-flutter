@@ -278,8 +278,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
 //To remove Scroll glow effect
 class CustomScroll extends ScrollBehavior {
-  Widget buildViewportChrome(
-      BuildContext context, Widget child, AxisDirection axisDirection) {
+  @override
+  Widget buildOverscrollIndicator(
+      BuildContext context, Widget child, ScrollableDetails details) {
     return child;
   }
 }
