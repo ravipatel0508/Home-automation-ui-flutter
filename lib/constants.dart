@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-bool isDark = true;
+// bool isDark = true;
 Color kPrimaryColor = const Color(0xFFd8AA38);
 Color kSecondaryColor = const Color(0xFF787878);
 List<Color> backgroundGradient = [const Color(0xFF252525), Colors.black];

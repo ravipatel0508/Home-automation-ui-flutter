@@ -49,7 +49,7 @@ class _ElectricApplianceGridTileState extends State<ElectricApplianceGridTile> {
                 ? RadialGradient(
                     center: Alignment.topLeft,
                     radius: 1.3,
-                    transform: isDark ? const GradientRotation(0.5) : null,
+                    transform: const GradientRotation(0.5),
                     colors: [kPrimaryColor, Colors.blueGrey[200]!],
                   )
                 : null,
@@ -196,7 +196,7 @@ class _LockGridTileState extends State<LockGridTile> {
               : RadialGradient(
                   center: Alignment.topLeft,
                   radius: 1.3,
-                  transform: isDark ? const GradientRotation(0.6) : null,
+                  transform: const GradientRotation(0.6),
                   colors: gridBorderGradient,
                 ),
         ),
@@ -277,8 +277,7 @@ class _LockGridTileState extends State<LockGridTile> {
                             )
                           : Image.asset(
                               "assets/icon/lock.png",
-                              color:
-                                  isDark ? Colors.white : Colors.blueGrey[200],
+                              color: Colors.white,
                               height: 30,
                             ),
                       const SizedBox(width: 6),
@@ -300,7 +299,7 @@ class _LockGridTileState extends State<LockGridTile> {
                       widget.isLocked
                           ? Image.asset(
                               "assets/icon/unlock.png",
-                              color: isDark ? Colors.white : kPrimaryColor,
+                              color: Colors.white,
                               height: 30,
                             )
                           : Draggable(
@@ -331,9 +330,7 @@ class _LockGridTileState extends State<LockGridTile> {
                                 ),
                                 child: Image.asset(
                                   "assets/icon/unlock.png",
-                                  color: isDark
-                                      ? kPrimaryColor
-                                      : Colors.blueGrey[200],
+                                  color: kPrimaryColor,
                                   height: 30,
                                 ),
                               ),

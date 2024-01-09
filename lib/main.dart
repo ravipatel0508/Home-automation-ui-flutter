@@ -38,7 +38,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: isDark ? Colors.black : Colors.white,
       body: Stack(
         children: [
           Container(
@@ -104,13 +103,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         children: [
-                          Row(
+                          const Row(
                             children: [
                               Text(
                                 "Hello",
                                 style: TextStyle(
-                                  color:
-                                      isDark ? Colors.white54 : Colors.black54,
+                                  color: Colors.white54,
                                   fontSize: 25,
                                 ),
                               ),
